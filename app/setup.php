@@ -107,8 +107,11 @@ add_action('after_setup_theme', function () {
      */
     add_theme_support('post-thumbnails');
     
-    // Boolean is for cropping image from the center (default false and scales an image)
-    add_image_size( 'custom-size', 700, 500, true); 
+    /**
+     * Add additional image size. 
+     * @param Boolean is for cropping image from the center (default is false and scales an image)
+     */ 
+    add_image_size( 'custom-size', 700, 500, true);
 
     /**
      * Enable HTML5 markup support
