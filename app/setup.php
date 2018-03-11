@@ -11,9 +11,67 @@ use Roots\Sage\Template\BladeProvider;
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
+	wp_enqueue_style('google-fonts', google_fonts_url());
+    // wp_enqueue_style( $handle, $src, $deps = array(), $ver, $media = 'all')
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
+    // wp_enqueue_script( $handle, $src, $deps, $version, $in_footer(boolean))
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
+
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+    }
 }, 100);
+
+/**
+ * Register custom fonts.
+ */
+function google_fonts_url() {
+	$fonts_url = '';
+	/**
+	 * Translators: If there are characters in your language that are not
+	 * supported by Rubik and Roboto Mono translate this to 'off'. Do not translate
+	 * into your own language.
+	 */
+	$rubik = _x( 'on', 'Rubik font: on or off', 'crave' );
+	$roboto_mono = _x( 'on', 'Roboto Mono font: on or off', 'crave' );
+
+	$font_families = array();
+
+	if ( 'off' !== $rubik ) {
+		$font_families[] = 'Rubik:300,300i,400,400i';
+	}
+	if ( 'off' !== $roboto_mono ) {
+		$font_families[] = 'Roboto Mono:400,400i,700,700i';
+	}
+	if ( in_array( 'on', array($rubik, $roboto_mono) ) ) {
+		$query_args = array(
+			'family' => urlencode( implode( '|', $font_families ) ),
+			'subset' => urlencode( 'latin' ),
+		);
+		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+	}
+	return esc_url_raw( $fonts_url );
+}
+
+/**
+ * Add preconnect for Google Fonts.
+ *
+ * @since Twenty Seventeen 1.0
+ *
+ * @param array  $urls           URLs to print for resource hints.
+ * @param string $relation_type  The relation type the URLs are printed.
+ * @return array $urls           URLs to print for resource hints.
+ */
+add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+	if ( wp_style_is( 'crave-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+		$urls[] = array(
+			'href' => 'https://fonts.gstatic.com',
+			'crossorigin',
+		);
+	}
+
+	return $urls;
+}, 10, 2 );
 
 /**
  * Theme setup
@@ -48,6 +106,9 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
      */
     add_theme_support('post-thumbnails');
+    
+    // Boolean is for cropping image from the center (default false and scales an image)
+    add_image_size( 'custom-size', 700, 500, true); 
 
     /**
      * Enable HTML5 markup support
