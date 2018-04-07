@@ -63,7 +63,7 @@ function google_fonts_url() {
  * @return array $urls           URLs to print for resource hints.
  */
 add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
-	if ( wp_style_is( 'crave-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
+	if ( wp_style_is( 'google-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
 		$urls[] = [
 			'href' => 'https://fonts.gstatic.com',
 			'crossorigin',
