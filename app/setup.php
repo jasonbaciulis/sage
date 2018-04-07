@@ -12,7 +12,7 @@ use Roots\Sage\Template\BladeProvider;
  */
 add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_style('google-fonts', google_fonts_url());
-    // wp_enqueue_style( $handle, $src, $deps = array(), $ver, $media = 'all')
+    // wp_enqueue_style( $handle, $src, $deps = [], $ver, $media = 'all')
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     // wp_enqueue_script( $handle, $src, $deps, $version, $in_footer(boolean))
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
@@ -35,7 +35,7 @@ function google_fonts_url() {
 	$rubik = _x( 'on', 'Rubik font: on or off', 'crave' );
 	$roboto_mono = _x( 'on', 'Roboto Mono font: on or off', 'crave' );
 
-	$font_families = array();
+	$font_families = [];
 
 	if ( 'off' !== $rubik ) {
 		$font_families[] = 'Rubik:300,300i,400,400i';
@@ -43,11 +43,11 @@ function google_fonts_url() {
 	if ( 'off' !== $roboto_mono ) {
 		$font_families[] = 'Roboto Mono:400,400i,700,700i';
 	}
-	if ( in_array( 'on', array($rubik, $roboto_mono) ) ) {
-		$query_args = array(
+	if ( in_array( 'on', [$rubik, $roboto_mono] ) ) {
+		$query_args = [
 			'family' => urlencode( implode( '|', $font_families ) ),
 			'subset' => urlencode( 'latin' ),
-		);
+        ];
 		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 	}
 	return esc_url_raw( $fonts_url );
@@ -64,10 +64,10 @@ function google_fonts_url() {
  */
 add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
 	if ( wp_style_is( 'crave-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
-		$urls[] = array(
+		$urls[] = [
 			'href' => 'https://fonts.gstatic.com',
 			'crossorigin',
-		);
+        ];
 	}
 
 	return $urls;
@@ -106,11 +106,11 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
      */
     add_theme_support('post-thumbnails');
-    
+
     /**
-     * Add additional image size. 
+     * Add additional image size.
      * @param Boolean is for cropping image from the center (default is false and scales an image)
-     */ 
+     */
     add_image_size( 'custom-size', 700, 500, true);
 
     /**
@@ -161,6 +161,47 @@ add_action('the_post', function ($post) {
 });
 
 /**
+ * Add custom image sizes attribute to enhance responsive image functionality
+ * for content images.
+ *
+ * @origin Twenty Seventeen 1.0
+ *
+ * @param string $sizes A source size value for use in a 'sizes' attribute.
+ * @param array  $size  Image size. Accepts an array of width and height
+ *                      values in pixels (in that order).
+ * @return string A source size value for use in a content image 'sizes' attribute.
+ */
+add_filter( 'wp_calculate_image_sizes', function ( $sizes, $size ) {
+	if ( is_singular() ) {
+		$width = $size[0];
+		if ( 610 <= $width ) {
+			$sizes = '(min-width: 990px) 720px, (min-width: 1300px) 610px, 95vw';
+		}
+		return $sizes;
+	}
+}, 10, 2 );
+
+/**
+ * Add custom image sizes attribute to enhance responsive image functionality
+ * for post thumbnails.
+ *
+ * @origin Twenty Seventeen 1.0
+ *
+ * @param array $attr       Attributes for the image markup.
+ * @param int   $attachment Image attachment ID.
+ * @param array $size       Registered image size or flat array of height and width dimensions.
+ * @return string A source size value for use in a post thumbnail 'sizes' attribute.
+ */
+add_filter( 'wp_get_attachment_image_attributes', function ( $attr, $attachment, $size ) {
+	if ( is_singular() ) {
+		$attr['sizes'] = '(min-width: 990px) 720px, (min-width: 1300px) 820px, 95vw';
+	} else {
+		$attr['sizes'] = '(min-width: 990px) 955px, (min-width: 1300px) 966px, 95vw';
+	}
+	return $attr;
+}, 10, 3 );
+
+/**
  * Setup Sage options
  */
 add_action('after_setup_theme', function () {
@@ -188,5 +229,23 @@ add_action('after_setup_theme', function () {
      */
     sage('blade')->compiler()->directive('asset', function ($asset) {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
+    });
+
+    /**
+     * Create @Query() Blade directive
+     */
+    sage('blade')->compiler()->directive('Query', function ($args) {
+        $output = '<?php $bladeQuery = new WP_Query($args); ?>';
+        $output .= '<?php while ($bladeQuery->have_posts()) : ?>';
+        $output .= '<?php $bladeQuery->the_post(); ?>';
+
+        return $output;
+    });
+
+    /**
+     * Create @endQuery Blade directive
+     */
+    sage('blade')->compiler()->directive('endQuery', function () {
+        return '<?php endwhile; wp_reset_query(); ?>';
     });
 });
