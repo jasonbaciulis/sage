@@ -34,6 +34,12 @@ Install Sage using Composer from your WordPress themes directory (replace `your-
 
 ```shell
 # @ app/themes/ or wp-content/themes/
+$ composer create-project roots/sage your-theme-name
+```
+
+To install the latest development version of Sage, add `dev-master` to the end of the command:
+
+```shell
 $ composer create-project roots/sage your-theme-name dev-master
 ```
 
@@ -85,9 +91,9 @@ Edit `app/setup.php` to enable or disable theme features, setup navigation menus
 
 ### Build commands
 
-* `yarn run start` — Compile assets when file changes are made, start Browsersync session
-* `yarn run build` — Compile and optimize the files in your assets directory
-* `yarn run build:production` — Compile assets for production
+* `yarn start` — Compile assets when file changes are made, start Browsersync session
+* `yarn build` — Compile and optimize the files in your assets directory
+* `yarn build:production` — Compile assets for production
 
 ## Documentation
 
