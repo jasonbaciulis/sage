@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1362ee4cc0fbe465df47aeb15838a178",
+    "content-hash": "5c366dbd2397fe006aecc52e6eb2c13a",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -248,6 +248,47 @@
                 "string"
             ],
             "time": "2018-01-09T20:05:19+00:00"
+        },
+        {
+            "name": "h-enk/json-sitemap",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/h-enk/json-sitemap.git",
+                "reference": "3991f0a1a8dab96f0f3caf179c6c6051935b4de8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/h-enk/json-sitemap/zipball/3991f0a1a8dab96f0f3caf179c6c6051935b4de8",
+                "reference": "3991f0a1a8dab96f0f3caf179c6c6051935b4de8",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Henk Verlinde",
+                    "email": "henk@ventizo.com",
+                    "homepage": "https://github.com/h-enk"
+                }
+            ],
+            "description": "WordPress plugin that generates a JSON sitemap on non-production environments - for use with UnCSS as a PostCSS plugin",
+            "homepage": "https://henkverlinde.com/plugins/json-sitemap/",
+            "keywords": [
+                "Sitemap",
+                "wordpress"
+            ],
+            "time": "2018-03-19T10:42:13+00:00"
         },
         {
             "name": "hassankhan/config",
@@ -634,6 +675,49 @@
             "description": "The Illuminate View package.",
             "homepage": "https://laravel.com",
             "time": "2017-08-05T12:41:58+00:00"
+        },
+        {
+            "name": "mwdelaney/sage-bootstrap4-navwalker",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MWDelaney/sage-bootstrap4-navwalker.git",
+                "reference": "c3523a84da3bbb115f8705267a49993e2090c81e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MWDelaney/sage-bootstrap4-navwalker/zipball/c3523a84da3bbb115f8705267a49993e2090c81e",
+                "reference": "c3523a84da3bbb115f8705267a49993e2090c81e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap4-navwalker.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael W. Delaney",
+                    "email": "michael@michaeldelaney.me"
+                }
+            ],
+            "description": "Bootstrap 4 Navbar component navwalker for Sage 9 based themes",
+            "homepage": "https://github.com/MWDelaney/sage-bootstrap4-navwalker",
+            "keywords": [
+                "bootstrap 4",
+                "navbar",
+                "navwalker",
+                "wordpress"
+            ],
+            "time": "2017-12-13T01:53:48+00:00"
         },
         {
             "name": "paragonie/random_compat",
