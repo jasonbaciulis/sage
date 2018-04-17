@@ -30,4 +30,29 @@ class App extends Controller
         }
         return get_the_title();
     }
+
+    /**
+     * Primary Nav Menu arguments
+     * @return array
+     */
+    public function primary_menu() {
+        $args = [
+            'theme_location'    => 'primary_navigation',
+            'walker'            => new wp_bootstrap4_navwalker()
+        ];
+        return $args;
+    }
+
+    // Set up to pull in ACF plugin fields as variables from options page
+    public function url_social_media_facebook() {
+        return get_field('url_social_media_facebook', 'option');
+    }
+
+    public function url_social_media_twitter() {
+        return get_field('url_social_media_twitter', 'option');
+    }
+
+    public function url_social_media_instagram() {
+        return get_field('url_social_media_instagram', 'option');
+    }
 }
