@@ -175,3 +175,36 @@ add_action('after_setup_theme', function () {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
     });
 });
+
+
+/**
+ * Add ACF options page
+ */
+add_action('init', function () {
+    if (!function_exists('acf_add_options_page')) {
+        return;
+    }
+    acf_add_options_page([
+        'page_title'    => 'Theme General Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'parent_slug'   => '',
+        'position'      => 2, // Below 'Dashboard' menu item
+        'icon_url'      => 'dashicons-admin-generic'
+    ]);
+    acf_add_options_sub_page([
+        'page_title'    => 'Header Settings',
+        'menu_title'    => 'Header',
+        'menu_slug'     => 'header',
+        'capability'    => 'manage_options',
+        'parent_slug'   => 'theme-general-settings'
+    ]);
+    acf_add_options_sub_page([
+        'page_title'    => 'Footer Settings',
+        'menu_title'    => 'Footer',
+        'menu_slug'     => 'footer',
+        'capability'    => 'manage_options',
+        'parent_slug'   => 'theme-general-settings'
+    ]);
+});
