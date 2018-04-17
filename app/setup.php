@@ -22,6 +22,7 @@ add_action('wp_enqueue_scripts', function () {
     }
 }, 100);
 
+
 /**
  * Register custom fonts.
  */
@@ -53,25 +54,6 @@ function google_fonts_url() {
 	return esc_url_raw( $fonts_url );
 }
 
-/**
- * Add preconnect for Google Fonts.
- *
- * @since Twenty Seventeen 1.0
- *
- * @param array  $urls           URLs to print for resource hints.
- * @param string $relation_type  The relation type the URLs are printed.
- * @return array $urls           URLs to print for resource hints.
- */
-add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
-	if ( wp_style_is( 'google-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
-		$urls[] = [
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-        ];
-	}
-
-	return $urls;
-}, 10, 2 );
 
 /**
  * Theme setup
@@ -132,6 +114,7 @@ add_action('after_setup_theme', function () {
     add_editor_style(asset_path('styles/main.css'));
 }, 20);
 
+
 /**
  * Register sidebars
  */
@@ -152,6 +135,7 @@ add_action('widgets_init', function () {
     ] + $config);
 });
 
+
 /**
  * Updates the `$post` variable on each iteration of the loop.
  * Note: updated value is only available for subsequently loaded views, such as partials
@@ -160,46 +144,6 @@ add_action('the_post', function ($post) {
     sage('blade')->share('post', $post);
 });
 
-/**
- * Add custom image sizes attribute to enhance responsive image functionality
- * for content images.
- *
- * @origin Twenty Seventeen 1.0
- *
- * @param string $sizes A source size value for use in a 'sizes' attribute.
- * @param array  $size  Image size. Accepts an array of width and height
- *                      values in pixels (in that order).
- * @return string A source size value for use in a content image 'sizes' attribute.
- */
-add_filter( 'wp_calculate_image_sizes', function ( $sizes, $size ) {
-	if ( is_singular() ) {
-		$width = $size[0];
-		if ( 610 <= $width ) {
-			$sizes = '(min-width: 990px) 720px, (min-width: 1300px) 610px, 95vw';
-		}
-		return $sizes;
-	}
-}, 10, 2 );
-
-/**
- * Add custom image sizes attribute to enhance responsive image functionality
- * for post thumbnails.
- *
- * @origin Twenty Seventeen 1.0
- *
- * @param array $attr       Attributes for the image markup.
- * @param int   $attachment Image attachment ID.
- * @param array $size       Registered image size or flat array of height and width dimensions.
- * @return string A source size value for use in a post thumbnail 'sizes' attribute.
- */
-add_filter( 'wp_get_attachment_image_attributes', function ( $attr, $attachment, $size ) {
-	if ( is_singular() ) {
-		$attr['sizes'] = '(min-width: 990px) 720px, (min-width: 1300px) 820px, 95vw';
-	} else {
-		$attr['sizes'] = '(min-width: 990px) 955px, (min-width: 1300px) 966px, 95vw';
-	}
-	return $attr;
-}, 10, 3 );
 
 /**
  * Setup Sage options
@@ -229,23 +173,5 @@ add_action('after_setup_theme', function () {
      */
     sage('blade')->compiler()->directive('asset', function ($asset) {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
-    });
-
-    /**
-     * Create @Query() Blade directive
-     */
-    sage('blade')->compiler()->directive('Query', function ($args) {
-        $output = '<?php $bladeQuery = new WP_Query($args); ?>';
-        $output .= '<?php while ($bladeQuery->have_posts()) : ?>';
-        $output .= '<?php $bladeQuery->the_post(); ?>';
-
-        return $output;
-    });
-
-    /**
-     * Create @endQuery Blade directive
-     */
-    sage('blade')->compiler()->directive('endQuery', function () {
-        return '<?php endwhile; wp_reset_query(); ?>';
     });
 });
