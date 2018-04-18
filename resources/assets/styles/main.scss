@@ -1,4 +1,4 @@
-@import "common/variables";
+@import "settings/global";
 
 /** Import everything from autoload */
 @import "./autoload/**/*";
@@ -12,14 +12,20 @@
 // @import "~some-node-module";
 
 /** Import theme styles */
-@import "common/global";
+
+// ELEMENTS
+@import "elements/headings";
+@import "elements/images";
+@import "elements/links";
+@import "elements/lists";
+@import "elements/tables";
+@import "elements/typography";
+
+// OBJECTS
+@import "objects/layout";
+
+// COMPONENTS
 @import "components/buttons";
 @import "components/comments";
 @import "components/forms";
 @import "components/wp-classes";
-@import "layouts/header";
-@import "layouts/sidebar";
-@import "layouts/footer";
-@import "layouts/pages";
-@import "layouts/posts";
-@import "layouts/tinymce";
