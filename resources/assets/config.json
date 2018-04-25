@@ -6,6 +6,9 @@
     ],
     "customizer": [
       "./scripts/customizer.js"
+    ],
+    "lazysizes": [
+      "./scripts/lazysizes.js"
     ]
   },
   "publicPath": "/app/themes/sage",
