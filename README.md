@@ -10,6 +10,7 @@ Sage Thrives is a fork of [Sage](https://roots.io/sage/) WordPress starter theme
 * Responsive background images
 * [Font Awesome](https://fontawesome.com/how-to-use/svg-with-js) 5 SVG icons
 * [unCSS](https://github.com/uncss/uncss#as-a-postcss-plugin) to remove unused CSS
+* [ACF](https://www.advancedcustomfields.com/) Pro options page
 * Additional filters for theme optimization
 
 ## Sage features
@@ -31,19 +32,20 @@ Make sure all dependencies have been installed before moving on:
 
 ## Theme installation
 
-Clone the git repo.
+### 1. Clone the git repo.
 
 ```shell
 git clone git@github.com:jasonbaciulis/sage-thrives.git
 ```
 
-Rename `sage-thrives` with the name of your theme.
+### 2. Rename `sage-thrives` with the name of your theme.
 
-Run `composer install` after getting the project files onto your machine. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
+### 3. Run `composer install`. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
 
 ## Theme setup
 
 Edit `app/setup.php` to enable or disable theme features, setup navigation menus, post thumbnail sizes, and sidebars.
+
 Edit `app/filters.php` to enable or disable additional theme optimization features.
 
 ## Theme development
