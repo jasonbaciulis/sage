@@ -15,6 +15,7 @@ add_action('wp_enqueue_scripts', function () {
     // wp_enqueue_style( $handle, $src, $deps = [], $ver, $media = 'all')
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     // wp_enqueue_script( $handle, $src, $deps, $version, $in_footer(boolean))
+    wp_enqueue_script('lazysizes', asset_path('scripts/lazysizes.js'), [], null, true);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -94,6 +95,9 @@ add_action('after_setup_theme', function () {
      * @param Boolean is for cropping image from the center (default is false and scales an image)
      */
     add_image_size( 'custom-size', 700, 500, true);
+
+    // Add tiny image size to use as a low quality image placeholder
+    add_image_size( 'lqip', 25, 99);
 
     /**
      * Enable HTML5 markup support
