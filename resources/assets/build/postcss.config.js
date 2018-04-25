@@ -8,6 +8,7 @@ const uncssConfig = {
   html: [
     'http://example.test',
     // Your entire sitemap added manually
+    // Or you can use a plugin to generate sitemap: https://github.com/h-enk/json-sitemap
   ]
 };
 
