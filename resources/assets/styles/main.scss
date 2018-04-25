@@ -1,31 +1,52 @@
-@import "settings/global";
-
-/** Import everything from autoload */
-@import "./autoload/**/*";
-
 /**
- * Import npm dependencies
+ * CSS folder structure is based on InuitCSS and ITCSS:
+ * https://github.com/inuitcss/inuitcss
+ * https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+ *
+ * I also recommend to write your CSS in BEM with Namespaces
+ * More about it here:
+ * https://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/
  *
  * Prefix your imports with `~` to grab from node_modules/
  * @see https://github.com/webpack-contrib/sass-loader#imports
+ * @import "~some-node-module";
  */
-// @import "~some-node-module";
 
-/** Import theme styles */
+// SETTINGS
+@import "settings/settings.global";
+@import "settings/settings.components";
+@import "settings/settings.mixins";
+
+// TOOLS
+@import "tools/tools.bootstrap";
 
 // ELEMENTS
-@import "elements/headings";
-@import "elements/images";
-@import "elements/links";
-@import "elements/lists";
-@import "elements/tables";
-@import "elements/typography";
+@import "elements/elements.headings";
+@import "elements/elements.images";
+@import "elements/elements.links";
+@import "elements/elements.lists";
+@import "elements/elements.tables";
+@import "elements/elements.typography";
 
 // OBJECTS
-@import "objects/layout";
+@import "objects/objects.layout";
+@import "objects/objects.wrappers";
+@import "objects/objects.media";
 
 // COMPONENTS
-@import "components/buttons";
-@import "components/comments";
-@import "components/forms";
-@import "components/wp-classes";
+@import "components/components.buttons";
+@import "components/components.header";
+@import "components/components.footer";
+@import "components/components.site-nav";
+@import "components/components.masthead";
+@import "components/components.comments";
+@import "components/components.forms";
+@import "components/components.wp-classes";
+
+// UTILITIES
+@import "utilities/utilities.loaded";
+@import "utilities/utilities.overflow";
+
+// SCOPES
+@import "scopes/scopes.post";
+@import "scopes/scopes.page";
