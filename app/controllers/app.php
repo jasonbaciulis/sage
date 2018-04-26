@@ -38,6 +38,14 @@ class App extends Controller
     public function primary_menu() {
         $args = [
             'theme_location'    => 'primary_navigation',
+            'menu'            => 'top',
+            'container'       => 'div',
+            'container_id'    => 'bs4navbar',
+            'container_class' => 'collapse navbar-collapse',
+            'menu_id'         => false,
+            'menu_class'      => 'navbar-nav mr-auto',
+            'depth'           => 2,
+            'fallback_cb'     => 'bs4navwalker::fallback',
             'walker'            => new wp_bootstrap4_navwalker()
         ];
         return $args;
