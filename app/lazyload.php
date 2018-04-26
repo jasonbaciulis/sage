@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Prepare content images for lazyloading using lazysizes library.
- * One of the best things about lazysizes is that you don't have to worry about
+ * Prepare content images for lazyloading using lazysizes.js.
+ * One of the best things about lazysizes.js is that you don't have to worry about
  * calculating sizes as lazysizes takes care of that. All we need to do is add
  * "auto" to data-sizes attribute as we're doing bellow.
  *
- * More about lazysizes: https://github.com/aFarkas/lazysizes
+ * More about lazysizes.js: https://github.com/aFarkas/lazysizes
  */
 
 add_filter( 'the_content',  function ($content) {
