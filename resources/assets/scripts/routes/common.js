@@ -1,9 +1,9 @@
-import ResponsiveBackgroundImage from '..libs/respbgimages.js';
+import ResponsiveBackgroundImage from '../libs/respbgimages.js';
 
 export default {
   init() {
     // JavaScript to be fired on all pages
-    const bgImages = document.querySelectorAll('.js-responsive-bg-image');
+    const bgImages = document.querySelectorAll('.js-resp-bg-image');
     for (let i = 0; i < bgImages.length; i++) {
       new ResponsiveBackgroundImage(bgImages[i]);
     }
