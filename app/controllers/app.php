@@ -51,16 +51,14 @@ class App extends Controller
         return $args;
     }
 
-    // Set up to pull in ACF plugin fields as variables from options page
-    public function url_social_media_facebook() {
-        return get_field('url_social_media_facebook', 'option');
+    /**
+     *  Pull in ACF plugin fields as variables from options page
+     */
+    public function url_social_facebook() {
+        return get_field('url_social_facebook', 'option');
     }
 
-    public function url_social_media_twitter() {
-        return get_field('url_social_media_twitter', 'option');
-    }
-
-    public function url_social_media_instagram() {
-        return get_field('url_social_media_instagram', 'option');
+    public function url_social_twitter() {
+        return get_field('url_social_twitter', 'option');
     }
 }
