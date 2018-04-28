@@ -23,16 +23,20 @@ add_filter( 'the_content',  function ($content) {
         if ( $img->hasAttribute( 'srcset' ) ) {
 
             $sizes = 'auto';
-            $srcset = $img->getAttribute( 'srcset' );
             $classes = $img->getAttribute( 'class' );
-            // Extract id number which is added as class by WP
+            // Extract id number which is added as class by WP to be able to retrieve attachment image src
             $id = preg_replace('/[^0-9]/', '', $classes);
             // Select low quality image placeholder src
-            $lqip = wp_get_attachment_image_src($id, 'lqip');
-            $lqip = $lqip[0];
+            $lqip = App::get_img_src($id, 'lqip');
+            $srcset = $img->getAttribute( 'srcset' );
+            $width = $img->getAttribute( 'width' );
+            $height = $img->getAttribute( 'height' );
+            // Calculate aspect ratio for lazysizes plugin to size image correctly
+            $aspectratio = "$width/$height";
             $classes .= ' lazyload';
 
             $img->setAttribute( 'src', $lqip );
+            $img->setAttribute( 'data-aspectratio', $aspectratio );
             $img->setAttribute( 'data-sizes', $sizes );
             $img->setAttribute( 'data-srcset', $srcset );
             $img->setAttribute( 'class', $classes );
