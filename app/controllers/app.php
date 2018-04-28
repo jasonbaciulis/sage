@@ -52,7 +52,7 @@ class App extends Controller
     }
 
     /**
-     *  Pull in ACF plugin fields as variables from options page
+     * Pull in ACF plugin fields as variables from options page
      */
     public function url_social_facebook() {
         return get_field('url_social_facebook', 'option');
@@ -60,5 +60,11 @@ class App extends Controller
 
     public function url_social_twitter() {
         return get_field('url_social_twitter', 'option');
+    }
+
+    public static function get_img_src($id, $size) {
+        $image_array = wp_get_attachment_image_src($id, $size);
+        $image_src = $image_array[0];
+        return $image_src;
     }
 }
