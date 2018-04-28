@@ -113,7 +113,7 @@ add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
 // 	}
 // 	// Defer all remaining scripts not excluded above
 // 	return str_replace( ' src', ' defer src', $tag );
-// });
+// }, 10, 2);
 
 
 /**
@@ -132,7 +132,7 @@ add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
 // 	}
 // 	// Defer all scripts included above
 // 	return str_replace(' src', ' defer src', $tag);
-// });
+// }, 10, 2);
 
 
 /**
@@ -151,4 +151,4 @@ add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
 // 	}
 // 	// Async all scripts included above
 // 	return str_replace(' src', ' async src', $tag);
-// });
+// }, 10, 2);
