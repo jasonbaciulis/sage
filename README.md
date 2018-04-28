@@ -33,15 +33,15 @@ Make sure all dependencies have been installed before moving on:
 
 ## Theme installation
 
-### 1. Clone the git repo.
+Clone the git repo.
 
 ```shell
 git clone git@github.com:jasonbaciulis/sage-thrives.git
 ```
 
-### 2. Rename `sage-thrives` with the name of your theme.
+Rename `sage-thrives` with the name of your theme.
 
-### 3. Run `composer install`. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
+Run `composer install`. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
 
 ## Theme setup
 
