@@ -115,7 +115,7 @@ $enable-print-styles:       true;
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
 
-// stylelint-disable
+/* stylelint-disable */
 $spacer: 1rem;
 $spacers: ();
 $spacers: map-merge((
@@ -136,7 +136,7 @@ $sizes: map-merge((
   100: 100%,
   auto: auto
 ), $sizes);
-// stylelint-enable
+/* stylelint-enable */
 
 // Body
 //
