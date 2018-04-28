@@ -4,7 +4,7 @@
  */
 
 // Searches for inner img and grabs src to apply as background-image
-export class ResponsiveBackgroundImage {
+export default class ResponsiveBackgroundImage {
 
   constructor(element) {
     this.element = element;
