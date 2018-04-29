@@ -87,6 +87,7 @@
     "node-sass": "~4.8.3",
     "postcss-loader": "~2.1.0",
     "postcss-safe-parser": "~3.0",
+    "postcss-uncss": "^0.16.1",
     "resolve-url-loader": "~2.3.0",
     "rimraf": "~2.6",
     "sass-loader": "~6.0",
