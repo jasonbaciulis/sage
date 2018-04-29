@@ -4,8 +4,8 @@ Sage Thrives is a fork of [Sage](https://roots.io/sage/) WordPress starter theme
 
 ## New features
 
-* Custom CSS framework inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) and combined with [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) 4.1
-* Custom WordPress [Nav Walker](https://github.com/dupkey/bs4navwalker) for Bootstrap 4 navigation
+* CSS framework inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) and combined with [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) 4.1
+* [Nav Walker](https://github.com/dupkey/bs4navwalker) for Bootstrap 4 navigation
 * [lazysizes.js](https://github.com/aFarkas/lazysizes) for progressive image loading
 * Responsive background images
 * [Font Awesome](https://fontawesome.com/how-to-use/svg-with-js) 5 SVG icons
@@ -75,7 +75,6 @@ Keep track of development and community news.
 * Follow [@rootswp on Twitter](https://twitter.com/rootswp)
 * Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 * Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-* Listen to the [Roots Radio podcast](https://roots.io/podcast/)
 
 ## Contributing
 
