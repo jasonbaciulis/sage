@@ -26,6 +26,7 @@ add_action('wp_enqueue_scripts', function () {
 
 /**
  * Register custom fonts.
+ * @link https://fonts.google.com/
  */
 function google_fonts_url() {
 	$fonts_url = '';
@@ -94,7 +95,12 @@ add_action('after_setup_theme', function () {
      * Add additional image size.
      * @param Boolean is for cropping image from the center (default is false and scales an image)
      */
-    add_image_size( 'custom-size', 700, 500, true);
+    add_image_size( 'mobile', 480, 9999);
+    add_image_size( 'laptop', 1366, 9999);
+    add_image_size( 'fullhd', 1920, 9999);
+
+    // Your blog posts featured image size
+    add_image_size( 'featured-index', 800, 450, true);
 
     // Add tiny image size to use as a low quality image placeholder
     add_image_size( 'lqip', 25, 99);
@@ -183,6 +189,7 @@ add_action('after_setup_theme', function () {
 
 /**
  * Add ACF options page
+ * @link https://www.advancedcustomfields.com/add-ons/options-page/
  */
 add_action('init', function () {
     if (!function_exists('acf_add_options_page')) {
