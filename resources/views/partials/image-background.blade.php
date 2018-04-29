@@ -1,9 +1,11 @@
 @php
 /**
- * You can reuse this partial by passing an array of data with an id when calling @include
+ * You can reuse this partial by passing an array of data when calling @include
+ * @param string $img_id
+ * @param string $bg_image_class - modifier class for background image div
  * Example bellow passes img id from ACF plugin
  *
- * @include('partials/image-background', ['img_id' => get_field('bg_image_masthead')])
+ * @example @include('partials/image-background', ['img_id' => get_field('bg_image_masthead'), 'bg_image_class' => 'c-resp-bg-image--masthead'])
  */
 
 $lqip         = App::get_img_src($img_id, 'lqip');          // Low quality image placeholder
@@ -15,7 +17,7 @@ $fullhd       = App::get_img_src($img_id, 'fullhd');        // Custom
 @endphp
 
 <div class="u-overflow-hidden">
-  <div class="o-resp-bg-image  js-resp-bg-image" style="background-image: url({{ $lqip }})">
+  <div class="o-resp-bg-image  <?= $bg_image_class ?>  js-resp-bg-image" style="background-image: url({{ $lqip }})">
     <img src="{{ $fullhd }}" style="display:none"
       sizes="100vw"
       srcset="
