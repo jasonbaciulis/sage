@@ -1,6 +1,7 @@
 @php
 /**
- * Pulls social links from functions setup in app/controllers/app.php
+ * Calls function names as variables from the controller
+ * @see app/controllers/app.php
  */
 @endphp
 

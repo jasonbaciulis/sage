@@ -6,7 +6,7 @@
  * calculating sizes as lazysizes takes care of that. All we need to do is add
  * "auto" to data-sizes attribute as we're doing bellow.
  *
- * More about lazysizes.js: https://github.com/aFarkas/lazysizes
+ * @link https://github.com/aFarkas/lazysizes
  */
 
 add_filter( 'the_content',  function ($content) {

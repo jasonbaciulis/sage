@@ -77,7 +77,7 @@ add_filter('comments_template', function ($comments_template) {
 
 /**
  * Add preconnect for Google Fonts.
- * More info: https://www.igvita.com/2015/08/17/eliminating-roundtrips-with-preconnect/
+ * @link https://www.igvita.com/2015/08/17/eliminating-roundtrips-with-preconnect/
  *
  * @since Twenty Seventeen 1.0
  *

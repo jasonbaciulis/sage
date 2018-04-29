@@ -1,6 +1,6 @@
 /**
  * Code borrowed from Alexander Claes and slightly reworked
- * https://aclaes.com/responsive-background-images-with-srcset-and-sizes/
+ * @see https://aclaes.com/responsive-background-images-with-srcset-and-sizes/
  */
 
 // Searches for inner img and grabs src to apply as background-image
