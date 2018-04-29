@@ -39,13 +39,7 @@ Clone the git repo.
 git clone git@github.com:jasonbaciulis/sage-thrives.git
 ```
 
-<<<<<<< HEAD
 Rename `sage-thrives` with the name of your theme.
-=======
-During theme installation you will have options to update `style.css` theme headers, select a CSS framework, and configure Browsersync.
-
-## Theme structure
->>>>>>> 8d001c7571368ea501268076172e79bae09141ce
 
 Run `composer install`. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
 
