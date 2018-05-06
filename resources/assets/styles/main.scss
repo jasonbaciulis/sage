@@ -31,7 +31,7 @@
 // OBJECTS
 @import "objects/objects.layout";
 @import "objects/objects.wrappers";
-@import "objects/objects.media";
+@import "objects/objects.ratio";
 
 // COMPONENTS
 @import "components/components.buttons";
@@ -39,6 +39,7 @@
 @import "components/components.footer";
 @import "components/components.site-nav";
 @import "components/components.masthead";
+@import "components/components.bg-image";
 @import "components/components.comments";
 @import "components/components.forms";
 @import "components/components.list-social";
