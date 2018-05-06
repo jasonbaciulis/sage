@@ -67,4 +67,22 @@ class App extends Controller
         $image_src = $image_array[0];
         return $image_src;
     }
+
+    public static function get_img_srcset($img_id) {
+        $mobile       = App::get_img_src($img_id, 'mobile');        // Custom
+        $tablet       = App::get_img_src($img_id, 'medium_large');  // WP default
+        $tablet_large = App::get_img_src($img_id, 'large');         // WP default
+        $laptop       = App::get_img_src($img_id, 'laptop');        // Custom
+        $fullhd       = App::get_img_src($img_id, 'fullhd');        // Custom
+
+        return $srcset = "$mobile 480w, $tablet 768w, $tablet_large 1024w, $laptop 1366w, $fullhd 1920w";
+    }
+
+    public static function lqip($img_id) {
+        return $lqip = App::get_img_src($img_id, 'lqip'); // Low quality image placeholder
+    }
+
+    public function bg_image_masthead() {
+        return get_field('bg_image_masthead');
+    }
 }
