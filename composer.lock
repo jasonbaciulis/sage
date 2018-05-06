@@ -641,7 +641,6 @@
             "time": "2018-04-03T12:56:35+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "mwdelaney/sage-bootstrap4-navwalker",
             "version": "1.1",
             "source": {
@@ -687,10 +686,8 @@
         {
             "name": "paragonie/random_compat",
             "version": "v2.0.12",
-=======
             "name": "nesbot/carbon",
             "version": "1.27.0",
->>>>>>> 8d001c7571368ea501268076172e79bae09141ce
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
