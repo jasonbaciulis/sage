@@ -54,13 +54,13 @@ class App extends Controller
     /**
      * Pull in ACF plugin fields as variables from options page
      */
-    public function url_social_facebook() {
-        return get_field('url_social_facebook', 'option');
-    }
+    // public function url_social_facebook() {
+    //     return get_field('url_social_facebook', 'option');
+    // }
 
-    public function url_social_twitter() {
-        return get_field('url_social_twitter', 'option');
-    }
+    // public function url_social_twitter() {
+    //     return get_field('url_social_twitter', 'option');
+    // }
 
     public static function get_img_src($id, $size) {
         $image_array = wp_get_attachment_image_src($id, $size);
@@ -82,7 +82,7 @@ class App extends Controller
         return $lqip = App::get_img_src($img_id, 'lqip'); // Low quality image placeholder
     }
 
-    public function bg_image_masthead() {
-        return get_field('bg_image_masthead');
-    }
+    // public function bg_image_masthead() {
+    //     return get_field('bg_image_masthead');
+    // }
 }
