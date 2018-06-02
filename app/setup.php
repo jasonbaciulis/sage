@@ -202,20 +202,43 @@ add_action('init', function () {
         'capability'    => 'edit_posts',
         'parent_slug'   => '',
         'position'      => 2, // Below 'Dashboard' menu item
-        'icon_url'      => 'dashicons-admin-generic'
-    ]);
-    acf_add_options_sub_page([
-        'page_title'    => 'Header Settings',
-        'menu_title'    => 'Header',
-        'menu_slug'     => 'header',
-        'capability'    => 'manage_options',
-        'parent_slug'   => 'theme-general-settings'
-    ]);
-    acf_add_options_sub_page([
-        'page_title'    => 'Footer Settings',
-        'menu_title'    => 'Footer',
-        'menu_slug'     => 'footer',
-        'capability'    => 'manage_options',
-        'parent_slug'   => 'theme-general-settings'
+        'icon_url'      => 'dashicons-admin-generic',
     ]);
 });
+
+
+/**
+ * Load posts with AJAX on tab click and on load more button click
+ */
+// function ajax_load_posts() {
+
+//     $offset = (isset($_POST['offset'])) ? $_POST['offset'] : 0;
+//     $ppp = (isset($_POST['posts_per_page'])) ? $_POST['posts_per_page'] : 9;
+//     $category = $_POST['query_cat'];
+
+//     $args = [
+//         'post_type'      => 'post',
+//         'orderby'        => 'date',
+//         'order'          => 'DESC',
+//         'post_status'    => 'publish',
+//         'offset'         => $offset,
+//         'posts_per_page' => $ppp,
+//     ];
+
+//     if ($category !== 'all') {
+//         $args['category_name'] = $category;
+//     }
+
+//     // We need to step out of namespace when calling WP_Query
+//     $query = new \WP_Query($args);
+
+// 	if( $query->have_posts() ) :
+// 		while( $query->have_posts() ): $query->the_post();
+//             echo \App\template(locate_template('views/partials/content'));
+//         endwhile;
+//     endif;
+
+//     die();
+// }
+// add_action('wp_ajax_loadposts', __NAMESPACE__ . '\\ajax_load_posts');
+// add_action('wp_ajax_nopriv_loadposts', __NAMESPACE__ . '\\ajax_load_posts');
