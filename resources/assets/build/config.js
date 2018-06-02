@@ -1,6 +1,7 @@
 const path = require('path');
 const { argv } = require('yargs');
 const merge = require('webpack-merge');
+const glob = require('glob-all');
 
 const desire = require('./util/desire');
 
