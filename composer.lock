@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1387af18b4df853db96edd5d561c8545",
+    "content-hash": "519e6dee82f1689251831382d21644ca",
     "packages": [
         {
             "name": "brain/hierarchy",
@@ -642,16 +642,16 @@
         },
         {
             "name": "mwdelaney/sage-bootstrap4-navwalker",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MWDelaney/sage-bootstrap4-navwalker.git",
-                "reference": "c3523a84da3bbb115f8705267a49993e2090c81e"
+                "reference": "8e9bcfc6ec813df7c2a102b06218334f502858b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MWDelaney/sage-bootstrap4-navwalker/zipball/c3523a84da3bbb115f8705267a49993e2090c81e",
-                "reference": "c3523a84da3bbb115f8705267a49993e2090c81e",
+                "url": "https://api.github.com/repos/MWDelaney/sage-bootstrap4-navwalker/zipball/8e9bcfc6ec813df7c2a102b06218334f502858b8",
+                "reference": "8e9bcfc6ec813df7c2a102b06218334f502858b8",
                 "shasum": ""
             },
             "require": {
@@ -681,11 +681,9 @@
                 "navwalker",
                 "wordpress"
             ],
-            "time": "2017-12-13T01:53:48+00:00"
+            "time": "2018-05-31T13:07:33+00:00"
         },
         {
-            "name": "paragonie/random_compat",
-            "version": "v2.0.12",
             "name": "nesbot/carbon",
             "version": "1.27.0",
             "source": {
