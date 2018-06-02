@@ -1,0 +1,30 @@
+p {
+  line-height: 1.5;
+}
+
+q {
+  quotes: "“ ”";
+}
+
+blockquote {
+  background-color: #ccc;
+  border-left: 8px solid theme-color('secondary');
+  margin: 1.5em 0;
+  padding: 2em;
+}
+
+blockquote::before {
+  color: theme-color('secondary');
+  content: "\201C";
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+blockquote p {
+  @include responsive-type(16px, 24px);
+
+  display: inline;
+  line-height: 1.5;
+}

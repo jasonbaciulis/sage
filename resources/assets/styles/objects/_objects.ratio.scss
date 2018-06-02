@@ -16,6 +16,14 @@ their correct aspect ratios.
     @include aspect-ratio(16, 9);
   }
 
+  &__fill--16by10 {
+    @include aspect-ratio(16, 10);
+  }
+
+  &__fill--1by1 {
+    @include aspect-ratio(1, 1);
+  }
+
   &__content {
     position: absolute;
     top: 0;

@@ -1,0 +1,67 @@
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .c-btn;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+select,
+textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: $input-padding-y $input-padding-x;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border-color;
+  font-family: inherit;
+  font-size: $font-size-base;
+  line-height: $input-line-height;
+
+  @include transition($input-transition);
+
+  // Unstyle the caret on `<select>`s in IE10+.
+  &::-ms-expand {
+    background-color: transparent;
+    border: 0;
+  }
+
+  // Customize the `:focus` state to imitate native WebKit styles.
+  @include form-control-focus();
+
+  // Placeholder
+  &::placeholder {
+    color: $input-placeholder-color;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    opacity: 1;
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &:disabled,
+  &[readonly] {
+    background-color: $input-disabled-bg;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+  }
+}

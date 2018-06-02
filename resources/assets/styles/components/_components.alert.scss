@@ -1,0 +1,11 @@
+.c-alert {
+  @extend .alert;
+
+  &--danger {
+    @extend .alert-danger;
+  }
+
+  &--success {
+    @extend .alert-success;
+  }
+}

@@ -1,0 +1,47 @@
+.c-footer {
+  @include responsive-type(40px, 80px, padding-top);
+  @include responsive-type(40px, 80px, padding-bottom);
+
+  // &__col-nav {
+
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+
+  // &__col-newsletter {
+
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+
+  // &__col-brand {
+
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+
+  // &__title {
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+
+  // &__meta-text {
+
+  // }
+
+  // &__brand {
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+
+  // &__brand-img {
+  //   @include media-breakpoint-up(lg) {
+
+  //   }
+  // }
+}

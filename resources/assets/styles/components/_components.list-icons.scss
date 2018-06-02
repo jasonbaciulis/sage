@@ -1,0 +1,19 @@
+.c-list-icons {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+  display: flex;
+  justify-content: center;
+
+  @include media-breakpoint-up(lg) {
+    justify-content: initial;
+  }
+  // &__item {
+
+  // }
+
+  &__link {
+    display: block;
+    padding: 5px;
+  }
+}

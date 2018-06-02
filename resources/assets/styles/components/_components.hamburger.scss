@@ -1,0 +1,21 @@
+.c-hamburger {
+  @extend .hamburger;
+
+  line-height: 0;
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+
+  &--slider {
+    @extend .hamburger--slider;
+  }
+
+  &__box {
+    @extend .hamburger-box;
+  }
+
+  &__inner {
+    @extend .hamburger-inner;
+  }
+}

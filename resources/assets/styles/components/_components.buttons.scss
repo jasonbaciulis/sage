@@ -1,0 +1,48 @@
+@mixin btn-hover() {
+  background-color: theme-color('secondary');
+}
+
+.c-btn {
+  @extend .btn;
+
+  transition: all 0.15s ease-in-out;
+
+  &:hover,
+  &:focus,
+  &:active {
+    @include btn-hover;
+  }
+
+  &--primary {
+    @extend .btn-primary;
+  }
+
+  &--large {
+    @include media-breakpoint-up(sm) {
+      padding-left: 7em;
+      padding-right: 7em;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.c-btn-close {
+  @extend .close;
+
+  position: absolute;
+  // right: -0.15em;
+  // top: -1em;
+  display: none;
+
+  @include media-breakpoint-up(sm) {
+    display: block;
+    right: -1em;
+    top: -0.4em;
+  }
+}

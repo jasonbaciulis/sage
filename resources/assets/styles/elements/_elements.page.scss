@@ -1,0 +1,23 @@
+/**
+ * Simple page-level setup.
+ *
+ * 1. Ensure the page always fills at least the entire height of the viewport.
+ */
+
+$body-font-family : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$body-font-size-sm: 1rem;
+$body-font-size-lg: 1.25rem;
+
+html {
+  min-height: 100%; /* [1] */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: $body-font-family;
+  font-size: $body-font-size-sm;
+
+  @include media-breakpoint-up(lg) {
+    font-size: $body-font-size-lg;
+  }
+}
