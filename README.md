@@ -9,7 +9,7 @@ Sage Thrives is a fork of [Sage](https://roots.io/sage/) WordPress starter theme
 * [lazysizes.js](https://github.com/aFarkas/lazysizes) for progressive image loading
 * Responsive background images
 * [Font Awesome](https://fontawesome.com/how-to-use/svg-with-js) 5 SVG icons
-* [unCSS](https://github.com/uncss/uncss#as-a-postcss-plugin) for removal of unused CSS
+* [purgeCSS](https://github.com/FullHuman/purgecss-webpack-plugin) for removal of unused CSS
 * [ACF](https://www.advancedcustomfields.com/) Pro options page setup with some fields
 * Additional filters for theme optimization
 * More blade partials
