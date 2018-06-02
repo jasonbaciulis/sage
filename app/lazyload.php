@@ -24,10 +24,7 @@ add_filter( 'the_content',  function ($content) {
 
             $sizes = 'auto';
             $classes = $img->getAttribute( 'class' );
-            // Extract id number which is added as class by WP to be able to retrieve attachment image src
-            $id = preg_replace('/[^0-9]/', '', $classes);
-            // Select low quality image placeholder src
-            $lqip = App::get_img_src($id, 'lqip');
+            $src = $img->getAttribute( 'src' );
             $srcset = $img->getAttribute( 'srcset' );
             $width = $img->getAttribute( 'width' );
             $height = $img->getAttribute( 'height' );
@@ -35,10 +32,11 @@ add_filter( 'the_content',  function ($content) {
             $aspectratio = "$width/$height";
             $classes .= ' lazyload';
 
-            $img->setAttribute( 'src', $lqip );
-            $img->setAttribute( 'data-aspectratio', $aspectratio );
-            $img->setAttribute( 'data-sizes', $sizes );
+            $img->setAttribute( 'src', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' );
+            $img->setAttribute( 'data-src', $src );
             $img->setAttribute( 'data-srcset', $srcset );
+            $img->setAttribute( 'data-sizes', $sizes );
+            $img->setAttribute( 'data-aspectratio', $aspectratio );
             $img->setAttribute( 'class', $classes );
 
             $img->removeAttribute( 'sizes' );
