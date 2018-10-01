@@ -2,9 +2,7 @@
   background-color: theme-color('secondary');
 }
 
-.c-btn {
-  @extend .btn;
-
+.btn {
   transition: all 0.15s ease-in-out;
 
   &:hover,
@@ -13,9 +11,9 @@
     @include btn-hover;
   }
 
-  &--primary {
-    @extend .btn-primary;
-  }
+  // &--primary {
+
+  // }
 
   &--large {
     @include media-breakpoint-up(sm) {
@@ -32,17 +30,3 @@
   }
 }
 
-.c-btn-close {
-  @extend .close;
-
-  position: absolute;
-  // right: -0.15em;
-  // top: -1em;
-  display: none;
-
-  @include media-breakpoint-up(sm) {
-    display: block;
-    right: -1em;
-    top: -0.4em;
-  }
-}

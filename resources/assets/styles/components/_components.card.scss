@@ -1,8 +1,4 @@
-$card-box-shadow: 0 2px 30px rgba(66, 111, 141, 0.2);
-
-.c-card {
-  @extend .card;
-
+.card {
   box-shadow: $card-box-shadow;
 
   &--noshadow {
@@ -51,8 +47,6 @@ $card-box-shadow: 0 2px 30px rgba(66, 111, 141, 0.2);
   }
 
   &__title {
-    @extend h3;
-
     color: theme-color('secondary');
   }
 

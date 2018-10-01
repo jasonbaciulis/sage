@@ -3,7 +3,7 @@ input[type="reset"],
 input[type="submit"] {
   @extend .btn;
   @extend .btn-primary;
-  @extend .c-btn;
+  @extend .btn;
 }
 
 input[type="text"],

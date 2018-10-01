@@ -21,3 +21,12 @@ body {
     font-size: $body-font-size-lg;
   }
 }
+
+/**
+Gets rid of the annoying outline for mouse users but preserves it for keyboard users,
+and is ignored by browsers that don’t support :focus-visible.
+https://twitter.com/LeaVerou/status/1045768279753666562
+*/
+:focus:not(:focus-visible) {
+  outline: none
+}

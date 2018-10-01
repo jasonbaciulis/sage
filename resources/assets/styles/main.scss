@@ -41,26 +41,17 @@ Prefix your imports with `~` to grab from node_modules/
 @import "elements/elements.typography";
 
 // OBJECTS
-@import "objects/objects.article";
-@import "objects/objects.card-deck";
 @import "objects/objects.center";
-@import "objects/objects.col";
-@import "objects/objects.grid";
-@import "objects/objects.layout";
 @import "objects/objects.ratio";
 @import "objects/objects.section";
-@import "objects/objects.screenreader";
-@import "objects/objects.wrappers";
+@import "objects/objects.wrapper";
 
 // COMPONENTS
 @import "components/components.alert";
 @import "components/components.article";
-@import "components/components.buttons";
+@import "components/components.btn";
 @import "components/components.bg-image";
 @import "components/components.card";
-@import "components/components.comments";
-@import "components/components.feat-image";
-@import "components/components.forms";
 @import "components/components.footer";
 @import "components/components.header";
 @import "components/components.lead";
@@ -71,6 +62,7 @@ Prefix your imports with `~` to grab from node_modules/
 @import "components/components.modal";
 @import "components/components.navbar";
 @import "components/components.newsletter";
+@import "components/components.search-form";
 @import "components/components.subtitle";
 @import "components/components.title";
 @import "components/components.wp-classes";
@@ -82,5 +74,4 @@ Prefix your imports with `~` to grab from node_modules/
 @import "utilities/utilities.overflow";
 
 // SCOPES
-@import "scopes/scopes.article";
-@import "scopes/scopes.section";
+@import "scopes/scopes.editor";
