@@ -18,7 +18,7 @@ Sage Thrives is a fork of [Sage](https://roots.io/sage/) WordPress starter theme
 
 * [Webpack](https://webpack.github.io/) for compiling assets, optimizing images, and concatenating and minifying files
 * [Browsersync](http://www.browsersync.io/) for synchronized browser testing
-* [Blade](https://laravel.com/docs/5.5/blade) as a templating engine
+* [Blade](https://laravel.com/docs/5.6/blade) as a templating engine
 * [Controller](https://github.com/soberwp/controller) for passing data to Blade templates
 
 ## Requirements

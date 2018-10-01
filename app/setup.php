@@ -11,50 +11,17 @@ use Roots\Sage\Template\BladeProvider;
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
-	wp_enqueue_style('google-fonts', google_fonts_url());
+	wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=IBM+Plex+Serif:400,400i,500,500i|Open+Sans:400,600,700&amp;subset=latin', false, null);
     // wp_enqueue_style( $handle, $src, $deps = [], $ver, $media = 'all')
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     // wp_enqueue_script( $handle, $src, $deps, $version, $in_footer(boolean))
     wp_enqueue_script('lazysizes', asset_path('scripts/lazysizes.js'), [], null, true);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
 
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+    if (is_single() && comments_open() && get_option('thread_comments')) {
+        wp_enqueue_script('comment-reply');
     }
 }, 100);
-
-
-/**
- * Register custom fonts.
- * @link https://fonts.google.com/
- */
-function google_fonts_url() {
-	$fonts_url = '';
-	/**
-	 * Translators: If there are characters in your language that are not
-	 * supported by Rubik and Roboto Mono translate this to 'off'. Do not translate
-	 * into your own language.
-	 */
-	$rubik = _x( 'on', 'Rubik font: on or off', 'crave' );
-	$roboto_mono = _x( 'on', 'Roboto Mono font: on or off', 'crave' );
-
-	$font_families = [];
-
-	if ( 'off' !== $rubik ) {
-		$font_families[] = 'Rubik:300,300i,400,400i';
-	}
-	if ( 'off' !== $roboto_mono ) {
-		$font_families[] = 'Roboto Mono:400,400i,700,700i';
-	}
-	if ( in_array( 'on', [$rubik, $roboto_mono] ) ) {
-		$query_args = [
-			'family' => urlencode( implode( '|', $font_families ) ),
-			'subset' => urlencode( 'latin' ),
-        ];
-		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-	}
-	return esc_url_raw( $fonts_url );
-}
 
 
 /**
@@ -177,68 +144,48 @@ add_action('after_setup_theme', function () {
         (new BladeProvider($app))->register();
         return new Blade($app['view']);
     });
-
-    /**
-     * Create @asset() Blade directive
-     */
-    sage('blade')->compiler()->directive('asset', function ($asset) {
-        return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
-    });
 });
 
 
 /**
- * Add ACF options page
- * @link https://www.advancedcustomfields.com/add-ons/options-page/
+ * Load posts with AJAX
  */
-add_action('init', function () {
-    if (!function_exists('acf_add_options_page')) {
-        return;
-    }
-    acf_add_options_page([
-        'page_title'    => 'Theme General Settings',
-        'menu_title'    => 'Theme Settings',
-        'menu_slug'     => 'theme-general-settings',
-        'capability'    => 'edit_posts',
-        'parent_slug'   => '',
-        'position'      => 2, // Below 'Dashboard' menu item
-        'icon_url'      => 'dashicons-admin-generic',
-    ]);
-});
+// function load_posts() {
 
-
-/**
- * Load posts with AJAX on tab click and on load more button click
- */
-// function ajax_load_posts() {
-
-//     $offset = (isset($_POST['offset'])) ? $_POST['offset'] : 0;
-//     $ppp = (isset($_POST['posts_per_page'])) ? $_POST['posts_per_page'] : 9;
-//     $category = $_POST['query_cat'];
+//     $post_type = 'news';
+//     $page      = $_POST['page'] ?? 1;
+//     $ppp       = $_POST['ppp'] ?? 12;
 
 //     $args = [
-//         'post_type'      => 'post',
-//         'orderby'        => 'date',
-//         'order'          => 'DESC',
-//         'post_status'    => 'publish',
-//         'offset'         => $offset,
-//         'posts_per_page' => $ppp,
+//         'post_type'              => $post_type,
+//         'post_status'            => 'publish',
+//         'orderby'                => 'date',
+//         'order'                  => 'DESC',
+//         'posts_per_page'         => $ppp,
+//         'paged'                  => $page,
+//         'update_post_meta_cache' => false,
+//         'update_post_term_cache' => false,
 //     ];
 
-//     if ($category !== 'all') {
-//         $args['category_name'] = $category;
-//     }
-
-//     // We need to step out of namespace when calling WP_Query
 //     $query = new \WP_Query($args);
 
-// 	if( $query->have_posts() ) :
-// 		while( $query->have_posts() ): $query->the_post();
-//             echo \App\template(locate_template('views/partials/content'));
+//     // Create an object where we'll store template content data as well any other data we want to pass to js
+//     $return_data = (object)[
+//         'content' => [],
+//         'found_posts' => $query->found_posts,
+//     ];
+
+//     if ($query->have_posts()) :
+//         while ($query->have_posts()): $query->the_post();
+//             array_push($return_data->content, \App\template(locate_template('views/partials/content-'.$post_type)));
 //         endwhile;
 //     endif;
 
-//     die();
+//     /**
+//      * Encodes a variable (Array or Object) as JSON, then prints and runs die()
+//      * @link https://developer.wordpress.org/reference/functions/wp_send_json/
+//      */
+//     wp_send_json($return_data);
 // }
-// add_action('wp_ajax_loadposts', __NAMESPACE__ . '\\ajax_load_posts');
-// add_action('wp_ajax_nopriv_loadposts', __NAMESPACE__ . '\\ajax_load_posts');
+// add_action('wp_ajax_load_posts', __NAMESPACE__ . '\\load_posts');
+// add_action('wp_ajax_nopriv_load_posts', __NAMESPACE__ . '\\load_posts');

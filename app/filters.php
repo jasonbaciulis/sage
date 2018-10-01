@@ -58,7 +58,7 @@ add_filter('template_include', function ($template) {
 }, PHP_INT_MAX);
 
 /**
- * Tell WordPress how to find the compiled path of comments.blade.php
+ * Render comments.blade.php
  */
 add_filter('comments_template', function ($comments_template) {
     $comments_template = str_replace(
@@ -66,5 +66,17 @@ add_filter('comments_template', function ($comments_template) {
         '',
         $comments_template
     );
-    return template_path(locate_template(["views/{$comments_template}", $comments_template]) ?: $comments_template);
+
+    $data = collect(get_body_class())->reduce(function ($data, $class) use ($comments_template) {
+        return apply_filters("sage/template/{$class}/data", $data, $comments_template);
+    }, []);
+
+    $theme_template = locate_template(["views/{$comments_template}", $comments_template]);
+
+    if ($theme_template) {
+        echo template($theme_template, $data);
+        return get_stylesheet_directory().'/index.php';
+    }
+
+    return $comments_template;
 }, 100);
