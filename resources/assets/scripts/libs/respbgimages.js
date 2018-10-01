@@ -26,7 +26,7 @@ export default class ResponsiveBackgroundImage {
       this.src = src;
       this.element.style.backgroundImage = 'url("' + this.src + '")';
       // Add class to remove blur filter or make other reveal animation
-      this.element.classList.add('u-bg-image-loaded');
+      // this.element.classList.add('u-bg-image-loaded');
     }
   }
 }
