@@ -40,3 +40,22 @@ add_filter('acf/format_value/type=text', function ($value, $post_id, $field) {
   $value = sanitize_text_field($value);
   return $value;
 }, 10, 3);
+
+/**
+ * Add ACF options page
+ * @link https://www.advancedcustomfields.com/add-ons/options-page/
+ */
+add_action('init', function () {
+    if (!function_exists('acf_add_options_page')) {
+        return;
+    }
+    acf_add_options_page([
+        'page_title'    => 'Theme General Settings',
+        'menu_title'    => 'Theme Settings',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'parent_slug'   => '',
+        'position'      => 2, // Below 'Dashboard' menu item
+        'icon_url'      => 'dashicons-admin-generic',
+    ]);
+});
