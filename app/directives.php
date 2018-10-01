@@ -6,6 +6,13 @@ add_action('after_setup_theme', function () {
     $sage = sage('blade')->compiler();
 
     /**
+     * Create @asset() Blade directive
+     */
+    $sage->directive('asset', function ($asset) {
+        return '<?= ' . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
+    });
+
+    /**
      * Create @posts() Blade directive
      */
     $sage->directive('posts', function ($expression) {
