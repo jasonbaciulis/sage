@@ -2,7 +2,6 @@
 
 namespace App;
 
-
 /**
  * Add <body> classes
  */
@@ -27,14 +26,12 @@ add_filter('body_class', function (array $classes) {
     return array_filter($classes);
 });
 
-
 /**
  * Add "… Continued" to the excerpt
  */
 add_filter('excerpt_more', function () {
     return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
 });
-
 
 /**
  * Template Hierarchy should search for .blade.php files
@@ -43,9 +40,8 @@ collect([
     'index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date', 'home',
     'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment'
 ])->map(function ($type) {
-    add_filter("{$type}_template_hierarchy", __NAMESPACE__.'\\filter_templates');
+    add_filter("{$type}_template_hierarchy", __NAMESPACE__ . '\\filter_templates');
 });
-
 
 /**
  * Render page using Blade
@@ -56,11 +52,10 @@ add_filter('template_include', function ($template) {
     }, []);
     if ($template) {
         echo template($template, $data);
-        return get_stylesheet_directory().'/index.php';
+        return get_stylesheet_directory() . '/index.php';
     }
     return $template;
 }, PHP_INT_MAX);
-
 
 /**
  * Tell WordPress how to find the compiled path of comments.blade.php
@@ -73,82 +68,3 @@ add_filter('comments_template', function ($comments_template) {
     );
     return template_path(locate_template(["views/{$comments_template}", $comments_template]) ?: $comments_template);
 }, 100);
-
-
-/**
- * Add preconnect for Google Fonts.
- * @link https://www.igvita.com/2015/08/17/eliminating-roundtrips-with-preconnect/
- *
- * @since Twenty Seventeen 1.0
- *
- * @param array  $urls           URLs to print for resource hints.
- * @param string $relation_type  The relation type the URLs are printed.
- * @return array $urls           URLs to print for resource hints.
- */
-add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
-	if ( wp_style_is( 'google-fonts', 'queue' ) && 'preconnect' === $relation_type ) {
-		$urls[] = [
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-        ];
-	}
-
-	return $urls;
-}, 10, 2 );
-
-
-/**
- * Defer all scripts which are not excluded
- */
-// add_filter( 'script_loader_tag', function($tag, $handle) {
-// 	if (is_admin()) {
-//         return $tag;
-//     }
-// 	// Add a script handle to NOT defer it
-// 	$scripts_to_exclude = [];
-
-// 	foreach($scripts_to_exclude as $exclude_script) {
-// 		if ($handle === $exclude_script)
-// 			return $tag;
-// 	}
-// 	// Defer all remaining scripts not excluded above
-// 	return str_replace( ' src', ' defer src', $tag );
-// }, 10, 2);
-
-
-/**
- *  Defer only scripts which are included in here
- */
-// add_filter('script_loader_tag', function($tag, $handle) {
-// 	if (is_admin()) {
-// 		return $tag;
-// 	}
-// 	//  Add a script handle to defer it
-// 	$scripts_to_include = [];
-
-// 	foreach($scripts_to_include as $include_script) {
-// 		if ($handle !== $include_script)
-// 			return $tag;
-// 	}
-// 	// Defer all scripts included above
-// 	return str_replace(' src', ' defer src', $tag);
-// }, 10, 2);
-
-
-/**
- *  Async only scripts which are included in here
- */
-// add_filter('script_loader_tag', function($tag, $handle) {
-// 	if (is_admin()) {
-// 		return $tag;
-// 	}
-// 	// Add a script handle to async
-// 	$scripts_to_include = [];
-
-// 	foreach($scripts_to_include as $include_script) {
-// 		if ($handle !== $include_script )
-// 			return $tag;
-// 	}
-// 	// Async all scripts included above
-// 	return str_replace(' src', ' async src', $tag);
-// }, 10, 2);
