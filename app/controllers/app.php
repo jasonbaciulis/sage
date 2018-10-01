@@ -34,8 +34,11 @@ class App extends Controller
     /**
      * Return content of a file
      */
-    public static function get_file_contents($asset) {
+    public static function get_file_contents($asset)
+    {
+        // Get asset built for production. This way we can include SVGs that are already optimized.
         $asset_url = asset_path($asset);
+        // Get asset PATH in order for file_exists() to work, because asset_path() actually returns url
         $asset_path = get_theme_file_path() . '/resources/assets/' . $asset ;
 
         if (file_exists($asset_path)) {
@@ -46,9 +49,10 @@ class App extends Controller
     }
 
     /**
-     * Shorter function to get specific img size src
-     */
-    public static function get_img_src($id, $size) {
+      * Shorter function to get specific img size src
+      */
+    public static function get_img_src($id, $size)
+    {
         $image_array = wp_get_attachment_image_src($id, $size);
         $image_src = $image_array[0];
         return $image_src;
@@ -57,31 +61,16 @@ class App extends Controller
     /**
      * Shorter function to get specific img size srcset
      */
-    public static function get_img_srcset($id, $size) {
+    public static function get_img_srcset($id, $size)
+    {
         return $image_srcset = wp_get_attachment_image_srcset($id, $size);
-    }
-
-    /**
-     * Get full srcset attribute for bg images
-     */
-    public static function get_bg_img_srcset($img_id) {
-        $mobile       = App::get_img_src($img_id, 'mobile');        // Custom
-        $tablet       = App::get_img_src($img_id, 'medium_large');  // WP default
-        $tablet_large = App::get_img_src($img_id, 'large');         // WP default
-        $laptop       = App::get_img_src($img_id, 'laptop');        // Custom
-        $fullhd       = App::get_img_src($img_id, 'fullhd');        // Custom
-
-        return $srcset = "$mobile 480w, $tablet 768w, $tablet_large 1024w, $laptop 1366w, $fullhd 1920w";
-    }
-
-    public static function lqip($img_id) {
-        return $lqip = App::get_img_src($img_id, 'lqip'); // Low quality image placeholder
     }
 
     /**
      * Get image aspect ratio
      */
-    public static function get_img_aspectratio($id, $size) {
+    public static function get_img_aspectratio($id, $size)
+    {
         $imageArray = wp_get_attachment_image_src($id, $size);
         $width = $imageArray[1];
         $height = $imageArray[2];
@@ -90,45 +79,89 @@ class App extends Controller
     }
 
     /**
-     * Pull ACF fields as variables from options page and store in an object
+     * Get image width
      */
-    public function social() {
-        return (object) [
-            'linkedin'    => get_field('social_linkedin', 'option'),
-            'twitter'     => get_field('social_twitter', 'option'),
-            'facebook'    => get_field('social_facebook', 'option'),
-            'google_plus' => get_field('social_google_plus', 'option'),
-            'youtube'     => get_field('social_youtube', 'option'),
-        ];
-    }
+    public static function get_img_width($id, $size)
+    {
+        $imageArray = wp_get_attachment_image_src($id, $size);
+        $width = $imageArray[1];
 
-    public function custom_query() {
-        $args = [
-            'post_type'      => 'post',
-            'orderby'        => 'date',
-            'order'          => 'DESC',
-            'posts_per_page' => 9,
-        ];
-        return $query = new \WP_Query($args);
+        return $width;
     }
 
     /**
-     * Primary Nav Menu arguments
-     * @return array
+     * Get image height
      */
-    public function primary_menu() {
-        $args = [
-            'theme_location'    => 'primary_navigation',
-            'menu'            => 'top',
-            'container'       => 'div',
-            'container_id'    => 'bs4navbar',
-            'container_class' => 'collapse navbar-collapse',
-            'menu_id'         => false,
-            'menu_class'      => 'navbar-nav mr-auto',
-            'depth'           => 2,
-            'fallback_cb'     => 'bs4navwalker::fallback',
-            'walker'            => new wp_bootstrap4_navwalker()
+    public static function get_img_height($id, $size)
+    {
+        $imageArray = wp_get_attachment_image_src($id, $size);
+        $height = $imageArray[2];
+
+        return $height;
+    }
+
+    /**
+     * Calculate a percentage of image ratio to dynamically set padding bottom for image aspect ratio containers
+     */
+    public static function get_ratio_percent($id, $size)
+    {
+        $imageArray = wp_get_attachment_image_src($id, $size);
+        $width = $imageArray[1];
+        $height = $imageArray[2];
+        $percent = round(($height / $width * 100), 2) . '%';
+
+        return $percent;
+    }
+
+    public static function get_img_object($id, $size)
+    {
+        return (object) [
+            'placeholder' => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+            'src' => wp_get_attachment_image_src($id, $size)[0],
+            'srcset' => wp_get_attachment_image_srcset($id, $size),
+            'alt' => get_post_meta($id, '_wp_attachment_image_alt', true),
+            'ratio_percent' => self::get_ratio_percent($id, $size),
         ];
-        return $args;
+    }
+
+    /**
+     * Max charlength
+     */
+    public static function max_charlength($string, $charlength = 165)
+    {
+        $excerpt = strip_tags($string);
+        $excerptnew = '';
+        $charlength++;
+
+        if (mb_strlen($excerpt) > $charlength) {
+            $subex = mb_substr($excerpt, 0, $charlength - 5);
+            $exwords = explode(' ', $subex);
+            $excut = -(mb_strlen($exwords[count($exwords) - 1]));
+            if ($excut < 0) {
+                $excerptnew .= mb_substr($subex, 0, $excut);
+            } else {
+                $excerptnew .= $subex;
+            }
+            $excerptnew .= '…';
+        } else {
+            $excerptnew .= $excerpt;
+        }
+        return $excerptnew;
+    }
+
+    /**
+     * Retrieve menu items in an array
+     * @link https://wordpress.stackexchange.com/questions/111060/retrieving-a-list-of-menu-items-in-an-array
+     */
+    public static function menu_items($menu)
+    {
+        $id = get_nav_menu_locations($menu);
+        $items = wp_get_nav_menu_items($id);
+
+        if (is_array($items)) {
+            return $items;
+        } else {
+            return [];
+        }
     }
 }
