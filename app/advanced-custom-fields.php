@@ -37,25 +37,73 @@ add_filter('acf/settings/load_json', function ($paths) {
  * in case of malicious code input inside ACF text field
  */
 add_filter('acf/format_value/type=text', function ($value, $post_id, $field) {
-  $value = sanitize_text_field($value);
-  return $value;
+    $value = sanitize_text_field($value);
+    return $value;
 }, 10, 3);
 
 /**
  * Add ACF options page
  * @link https://www.advancedcustomfields.com/add-ons/options-page/
+ * @link https://support.advancedcustomfields.com/forums/topic/options-page-polylang/
  */
 add_action('init', function () {
-    if (!function_exists('acf_add_options_page')) {
-        return;
+    if (function_exists('acf_add_options_page')) {
+        // If using Polylang create language specific option pages
+        if (function_exists('pll_languages_list')) {
+            // Main Theme Settings Page
+            $parent = acf_add_options_page([
+                'page_title' => 'Theme General Settings',
+                'menu_title' => 'Theme Settings',
+                'menu_slug' => 'theme-general-settings',
+                'capability' => 'edit_posts',
+                'parent_slug' => '',
+                'position' => 2, // Below 'Dashboard' menu item
+                'icon_url' => 'dashicons-admin-generic',
+            ]);
+
+            /**
+             * Global Options
+             * Same options on all languages. e.g., social profiles links
+             */
+            acf_add_options_sub_page([
+                'page_title' => 'Global Options',
+                'menu_title' => __('Global Options', 'sage'),
+                'menu_slug' => 'acf-options',
+                'parent' => $parent['menu_slug']
+            ]);
+
+            /**
+             * Language Specific Options
+             * Get a list of languages set in polylang
+             */
+            $languages = pll_languages_list();
+
+            // $languages = [];
+            // $translations = pll_languages_list();
+
+            // foreach ($translations as $lang) {
+            //     array_push($languages, $lang);
+            // }
+
+            foreach ($languages as $lang) {
+                acf_add_options_sub_page([
+                    'page_title' => 'Options (' . strtoupper($lang) . ')',
+                    'menu_title' => __('Options (' . strtoupper($lang) . ')', 'sage'),
+                    'menu_slug' => "options-${lang}",
+                    'post_id' => $lang,
+                    'parent' => $parent['menu_slug']
+                ]);
+            }
+        } else {
+            acf_add_options_page([
+                'page_title' => 'Theme General Settings',
+                'menu_title' => 'Theme Settings',
+                'menu_slug' => 'theme-general-settings',
+                'capability' => 'edit_posts',
+                'parent_slug' => '',
+                'position' => 2, // Below 'Dashboard' menu item
+                'icon_url' => 'dashicons-admin-generic',
+            ]);
+        }
     }
-    acf_add_options_page([
-        'page_title'    => 'Theme General Settings',
-        'menu_title'    => 'Theme Settings',
-        'menu_slug'     => 'theme-general-settings',
-        'capability'    => 'edit_posts',
-        'parent_slug'   => '',
-        'position'      => 2, // Below 'Dashboard' menu item
-        'icon_url'      => 'dashicons-admin-generic',
-    ]);
 });
