@@ -6,8 +6,8 @@ $img   = !empty($id) ? App::get_img_object($id, $size) : null;
 @endphp
 
 @if ($img)
-<figure class="ratio">
-  <div class="ratio__fill--{{$ratio}}"></div>
-  <img src="{{$img->placeholder}}" class="ratio__content  lazyload" data-srcset="{{$img->srcset}}" data-src="{{$img->src}}" data-sizes="auto" alt="{{$img->alt}}">
+<figure class="c-ratio">
+  <div class="c-ratio__fill--{{$ratio}}"></div>
+  <img src="{{$img->placeholder}}" class="c-ratio__content  lazyload" data-srcset="{{$img->srcset}}" data-src="{{$img->src}}" data-sizes="auto" alt="{{$img->alt}}">
 </figure>
 @endif
