@@ -1,34 +1,13 @@
-.navbar {
-  background-color: #fff;
-  box-shadow: 0 4px 4px rgba(0, 25, 117, 0.1);
+  // .c-navbar {
+  //   // &__brand {
+  //   //   @include media-breakpoint-up(xl) {
 
-  @include media-breakpoint-up(lg) {
-    background-color: transparent;
-    box-shadow: none;
-  }
+  //   //   }
+  //   // }
 
-  // .nav-link {
+  //   // &__logo {
 
-  //   @include media-breakpoint-up(lg) {
-
-  //   }
+  //   //   @include media-breakpoint-up(md) {
+  //   //   }
+  //   // }
   // }
-
-  // &__nav {
-
-  //   @include media-breakpoint-up(lg) {
-  //   }
-  // }
-
-  // &__brand {
-  //   @include media-breakpoint-up(xl) {
-
-  //   }
-  // }
-
-  // &__logo {
-
-  //   @include media-breakpoint-up(md) {
-  //   }
-  // }
-}

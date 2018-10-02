@@ -1,9 +1,8 @@
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .btn;
+  @extend .c-btn;
+  @extend .c-btn--primary;
 }
 
 input[type="text"],
@@ -26,14 +25,14 @@ textarea {
   display: block;
   width: 100%;
   margin-bottom: 10px;
-  padding: $input-padding-y $input-padding-x;
-  color: $input-color;
-  background-color: $input-bg;
+  padding: 10px 15px;
+  color: gray;
+  background-color: #fff;
   background-clip: padding-box;
-  border: $input-border-width solid $input-border-color;
+  border: 1px solid gray;
   font-family: inherit;
-  font-size: $font-size-base;
-  line-height: $input-line-height;
+  font-size: 16px;
+  line-height: 1.5;
 
   @include transition($input-transition);
 

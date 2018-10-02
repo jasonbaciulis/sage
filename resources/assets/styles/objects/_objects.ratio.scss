@@ -7,7 +7,7 @@ their correct aspect ratios.
   padding-bottom: ($height / $width) * 100%;
 }
 
-.ratio {
+.o-ratio {
   position: relative;
   display: block;
   overflow: hidden;

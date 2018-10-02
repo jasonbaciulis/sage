@@ -1,4 +1,7 @@
-.section {
+.o-section {
+  @include responsive-type(15px, 30px, margin-top);
+  @include responsive-type(15px, 30px, margin-bottom);
+
   //
   // Frontpage
   //

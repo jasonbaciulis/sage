@@ -61,12 +61,13 @@ Prefix your imports with `~` to grab from node_modules/
 @import "components/components.masthead";
 @import "components/components.modal";
 @import "components/components.navbar";
+@import "components/components.nav-primary";
 @import "components/components.newsletter";
 @import "components/components.search-form";
-@import "components/components.subtitle";
 @import "components/components.title";
+@import "components/components.subtitle";
 @import "components/components.wp-classes";
-@import "components/components.ytplayer";
+@import "components/components.player";
 
 // UTILITIES
 @import "utilities/utilities.align-text";
