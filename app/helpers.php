@@ -89,7 +89,7 @@ function filter_templates($templates)
         'views',
         'resources/views'
     ]);
-    $paths_pattern = "#^(" . implode('|', $paths) . ")/#";
+    $paths_pattern = '#^(' . implode('|', $paths) . ')/#';
 
     return collect($templates)
         ->map(function ($template) use ($paths_pattern) {

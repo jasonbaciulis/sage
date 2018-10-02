@@ -11,7 +11,7 @@ use Roots\Sage\Template\BladeProvider;
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
-	wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=IBM+Plex+Serif:400,400i,500,500i|Open+Sans:400,600,700&amp;subset=latin', false, null);
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css?family=IBM+Plex+Serif:400,400i,500,500i|Open+Sans:400,600,700&amp;subset=latin', false, null);
     // wp_enqueue_style( $handle, $src, $deps = [], $ver, $media = 'all')
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     // wp_enqueue_script( $handle, $src, $deps, $version, $in_footer(boolean))
@@ -22,7 +22,6 @@ add_action('wp_enqueue_scripts', function () {
         wp_enqueue_script('comment-reply');
     }
 }, 100);
-
 
 /**
  * Theme setup
@@ -62,15 +61,10 @@ add_action('after_setup_theme', function () {
      * Add additional image size.
      * @param Boolean is for cropping image from the center (default is false and scales an image)
      */
-    add_image_size( 'mobile', 480, 9999);
-    add_image_size( 'laptop', 1366, 9999);
-    add_image_size( 'fullhd', 1920, 9999);
-
-    // Your blog posts featured image size
-    add_image_size( 'featured-index', 800, 450, true);
+    // add_image_size('mobile', 480, 9999);
 
     // Add tiny image size to use as a low quality image placeholder
-    add_image_size( 'lqip', 25, 99);
+    add_image_size('lqip', 25, 99);
 
     /**
      * Enable HTML5 markup support
@@ -91,27 +85,25 @@ add_action('after_setup_theme', function () {
     add_editor_style(asset_path('styles/main.css'));
 }, 20);
 
-
 /**
  * Register sidebars
  */
 add_action('widgets_init', function () {
     $config = [
         'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3>',
-        'after_title'   => '</h3>'
+        'after_widget' => '</section>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>'
     ];
     register_sidebar([
-        'name'          => __('Primary', 'sage'),
-        'id'            => 'sidebar-primary'
+        'name' => __('Primary', 'sage'),
+        'id' => 'sidebar-primary'
     ] + $config);
     register_sidebar([
-        'name'          => __('Footer', 'sage'),
-        'id'            => 'sidebar-footer'
+        'name' => __('Footer', 'sage'),
+        'id' => 'sidebar-footer'
     ] + $config);
 });
-
 
 /**
  * Updates the `$post` variable on each iteration of the loop.
@@ -120,7 +112,6 @@ add_action('widgets_init', function () {
 add_action('the_post', function ($post) {
     sage('blade')->share('post', $post);
 });
-
 
 /**
  * Setup Sage options
@@ -145,7 +136,6 @@ add_action('after_setup_theme', function () {
         return new Blade($app['view']);
     });
 });
-
 
 /**
  * Load posts with AJAX
