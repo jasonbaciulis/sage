@@ -93,21 +93,23 @@ add_filter('comments_template', function ($comments_template) {
  *
  * @return string The filtered button.
  */
-add_filter('gform_submit_button', function ($button, $form) {
-    $dom = new \DOMDocument();
-    $dom->loadHTML($button);
-    $input = $dom->getElementsByTagName('input')->item(0);
-    $new_button = $dom->createElement('button');
-    $new_button->appendChild($dom->createTextNode($input->getAttribute('value')));
+if (class_exists('GFAPI')) {
+    add_filter('gform_submit_button', function ($button, $form) {
+        $dom = new \DOMDocument();
+        $dom->loadHTML($button);
+        $input = $dom->getElementsByTagName('input')->item(0);
+        $new_button = $dom->createElement('button');
+        $new_button->appendChild($dom->createTextNode($input->getAttribute('value')));
 
-    $input->removeAttribute('value');
-    foreach ($input->attributes as $attribute) {
-        $new_button->setAttribute($attribute->name, $attribute->value);
-    }
-    $classes = $new_button->getAttribute('class');
-    $classes .= ' c-btn c-btn--primary';
-    $new_button->setAttribute('class', $classes);
-    $input->parentNode->replaceChild($new_button, $input);
+        $input->removeAttribute('value');
+        foreach ($input->attributes as $attribute) {
+            $new_button->setAttribute($attribute->name, $attribute->value);
+        }
+        $classes = $new_button->getAttribute('class');
+        $classes .= ' c-btn c-btn--primary';
+        $new_button->setAttribute('class', $classes);
+        $input->parentNode->replaceChild($new_button, $input);
 
-    return $dom->saveHtml($new_button);
-}, 10, 2);
+        return $dom->saveHtml($new_button);
+    }, 10, 2);
+}

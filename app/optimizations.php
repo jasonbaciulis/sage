@@ -192,21 +192,23 @@ remove_action('template_redirect', 'rest_output_link_header', 11, 0);
  * Force Gravity Forms to init scripts in the footer and ensure that the DOM is loaded before scripts are executed
  * @link https://gist.github.com/eriteric/5d6ca5969a662339c4b3
  */
-add_filter('gform_init_scripts_footer', '__return_true');
-add_filter('gform_cdata_open', function ($content = '') {
-    if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
+if (class_exists('GFAPI')) {
+    add_filter('gform_init_scripts_footer', '__return_true');
+    add_filter('gform_cdata_open', function ($content = '') {
+        if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
+            return $content;
+        }
+        $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
+
         return $content;
-    }
-    $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
+    }, 1);
 
-    return $content;
-}, 1);
+    add_filter('gform_cdata_close', function ($content = '') {
+        if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
+            return $content;
+        }
+        $content = ' }, false );';
 
-add_filter('gform_cdata_close', function ($content = '') {
-    if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
         return $content;
-    }
-    $content = ' }, false );';
-
-    return $content;
-}, 99);
+    }, 99);
+}
