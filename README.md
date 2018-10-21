@@ -34,7 +34,7 @@ Make sure all dependencies have been installed before moving on:
 
 Recommeded VS Code extension:
 
-* [PHP CS Fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer) Sage uses PSR-2 coding standards so this extension formats your PHP code on save using the same standards.
+* [PHP CS Fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer) - Sage uses PSR-2 coding standards so this extension formats your PHP code on save using the same standards.
 
 ## Theme installation
 
