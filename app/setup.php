@@ -7,6 +7,8 @@ use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
+// define('GOOGLE_API_KEY', 'your_key');
+
 /**
  * Theme assets
  */
@@ -20,6 +22,9 @@ add_action('wp_enqueue_scripts', function () {
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
+    }
+    if (defined('GOOGLE_API_KEY') && is_front_page()) {
+        wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js?key=' . GOOGLE_API_KEY, [], null, true);
     }
 }, 100);
 
@@ -48,7 +53,7 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
     ]);
 
     /**
@@ -91,17 +96,17 @@ add_action('after_setup_theme', function () {
 add_action('widgets_init', function () {
     $config = [
         'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget' => '</section>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>'
+        'after_widget'  => '</section>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
     ];
     register_sidebar([
         'name' => __('Primary', 'sage'),
-        'id' => 'sidebar-primary'
+        'id'   => 'sidebar-primary',
     ] + $config);
     register_sidebar([
         'name' => __('Footer', 'sage'),
-        'id' => 'sidebar-footer'
+        'id'   => 'sidebar-footer',
     ] + $config);
 });
 
@@ -133,6 +138,7 @@ add_action('after_setup_theme', function () {
             wp_mkdir_p($cachePath);
         }
         (new BladeProvider($app))->register();
+
         return new Blade($app['view']);
     });
 });
@@ -179,3 +185,13 @@ add_action('after_setup_theme', function () {
 // }
 // add_action('wp_ajax_load_posts', __NAMESPACE__ . '\\load_posts');
 // add_action('wp_ajax_nopriv_load_posts', __NAMESPACE__ . '\\load_posts');
+
+/**
+* Add Google Maps API key to ACF to enable Google Map field
+* @link https://www.advancedcustomfields.com/blog/google-maps-api-settings/
+*/
+add_action('acf/init', function () {
+    if (defined('GOOGLE_API_KEY')) {
+        acf_update_setting('google_api_key', GOOGLE_API_KEY);
+    }
+});
