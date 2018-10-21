@@ -52,7 +52,9 @@ Run `composer install`. This will make sure that the Composer autoload files are
 
 Edit `app/setup.php` to enable or disable theme features, setup navigation menus, post thumbnail sizes, and sidebars.
 
-Edit `app/filters.php` to enable or disable additional theme optimization features.
+Edit `app/filters.php` to add or remove some theme functionality.
+
+Edit `app/optimizations.php` to enable or disable additional theme optimization features.
 
 ## Theme development
 
