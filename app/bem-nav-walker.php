@@ -15,14 +15,15 @@ class BEM_Nav_Walker extends \Walker_Nav_Menu
 
         // Define menu item names appropriately
         $this->item_css_class_suffixes = [
-            'item' => '__item',
-            'parent_item' => '__item--parent',
-            'active_item' => '__item--is-active',
-            'parent_of_active_item' => '__item--is-active',
+            'item'                    => '__item',
+            'parent_item'             => '__item--parent',
+            'active_item'             => '__item--is-active',
+            'parent_of_active_item'   => '__item--is-active',
             'ancestor_of_active_item' => '__item--ancestor-is-active',
-            'sub_menu' => '__sub-list',
-            'sub_menu_item' => '__item--sub-list',
-            'link' => '__link',
+            'sub_menu'                => '__sub-list',
+            'sub_menu_item'           => '__item--sub-list',
+            'link'                    => '__link',
+            // 'featured_item'           => '--feat',
         ];
     }
 
@@ -42,9 +43,9 @@ class BEM_Nav_Walker extends \Walker_Nav_Menu
     {
         $real_depth = $depth + 1;
 
-        $indent = str_repeat("\t", $real_depth);
-        $prefix = $this->css_class_prefix;
-        $suffix = $this->item_css_class_suffixes;
+        $indent  = str_repeat("\t", $real_depth);
+        $prefix  = $this->css_class_prefix;
+        $suffix  = $this->item_css_class_suffixes;
         $classes = [
             $prefix . $suffix['sub_menu'],
             // $prefix . $suffix['sub_menu']. '--' . $real_depth
@@ -65,14 +66,16 @@ class BEM_Nav_Walker extends \Walker_Nav_Menu
         $suffix = $this->item_css_class_suffixes;
         // Item classes
         $item_classes = [
-            'item_class' => $depth == 0 ? $prefix . $suffix['item'] : '',
-            'parent_class' => $args->has_children ? $parent_class = $prefix . $suffix['parent_item'] : '',
-            'active_page_class' => in_array('current-menu-item', $item->classes) ? $prefix . $suffix['active_item'] : '',
+            'item_class'          => $depth == 0 ? $prefix . $suffix['item'] : '',
+            'parent_class'        => $args->has_children ? $parent_class = $prefix . $suffix['parent_item'] : '',
+            'active_page_class'   => in_array('current-menu-item', $item->classes) ? $prefix . $suffix['active_item'] : '',
             'active_parent_class' => in_array('current-menu-parent', $item->classes) ? $prefix . $suffix['parent_of_active_item'] : '',
             // 'active_ancestor_class' => in_array("current-menu-ancestor",$item->classes) ? $prefix . $suffix['ancestor_of_active_item'] : '',
             'depth_class' => $depth >= 1 ? $prefix . $suffix['sub_menu_item'] : '',
             // 'item_id_class'         => $prefix . '__item--'. $item->object_id,
-            'user_class' => $item->classes[0] !== '' ? $prefix . '__item--' . $item->classes[0] : ''
+            'user_class' => $item->classes[0] !== '' ? $prefix . '__item--' . $item->classes[0] : '',
+            // get an ACF checkbox field value and if it is set then add featured class to that item
+            // 'highlight_class' => get_field('highlight_menu_item', $item) ? $prefix . $suffix['item'] . $suffix['featured_item'] : '',
         ];
         // convert array to string excluding any empty values
         $class_string = implode('  ', array_filter($item_classes));
@@ -80,7 +83,7 @@ class BEM_Nav_Walker extends \Walker_Nav_Menu
         $output .= $indent . '<li class="' . $class_string . '">';
         // Link classes
         $link_classes = [
-            'item_link' => $depth == 0 ? $prefix . $suffix['link'] : '',
+            'item_link'   => $depth == 0 ? $prefix . $suffix['link'] : '',
             'depth_class' => $depth >= 1 ? $prefix . $suffix['link'] . '  ' . $prefix . $suffix['link'] . '--sub-list' : '',
         ];
         $link_class_string = implode('  ', array_filter($link_classes));
@@ -124,9 +127,9 @@ function bem_nav_menu($location = 'main_menu', $css_class_prefix = 'main-menu', 
     }
     $args = [
         'theme_location' => $location,
-        'container' => false,
-        'items_wrap' => '<ul class="' . $modifiers . '">%3$s</ul>',
-        'walker' => new BEM_Nav_Walker($css_class_prefix, true)
+        'container'      => false,
+        'items_wrap'     => '<ul class="' . $modifiers . '">%3$s</ul>',
+        'walker'         => new BEM_Nav_Walker($css_class_prefix, true),
     ];
 
     if (has_nav_menu($location)) {
