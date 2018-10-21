@@ -17,6 +17,7 @@ class App extends Controller
             if ($home = get_option('page_for_posts', true)) {
                 return get_the_title($home);
             }
+
             return __('Latest Posts', 'sage');
         }
         if (is_archive()) {
@@ -28,6 +29,7 @@ class App extends Controller
         if (is_404()) {
             return __('Not Found', 'sage');
         }
+
         return get_the_title();
     }
 
@@ -54,7 +56,8 @@ class App extends Controller
     public static function get_img_src($id, $size)
     {
         $image_array = wp_get_attachment_image_src($id, $size);
-        $image_src = $image_array[0];
+        $image_src   = $image_array[0];
+
         return $image_src;
     }
 
@@ -72,8 +75,8 @@ class App extends Controller
     public static function get_img_aspectratio($id, $size)
     {
         $imageArray = wp_get_attachment_image_src($id, $size);
-        $width = $imageArray[1];
-        $height = $imageArray[2];
+        $width      = $imageArray[1];
+        $height     = $imageArray[2];
 
         return $ratio = "$width/$height";
     }
@@ -84,7 +87,7 @@ class App extends Controller
     public static function get_img_width($id, $size)
     {
         $imageArray = wp_get_attachment_image_src($id, $size);
-        $width = $imageArray[1];
+        $width      = $imageArray[1];
 
         return $width;
     }
@@ -95,7 +98,7 @@ class App extends Controller
     public static function get_img_height($id, $size)
     {
         $imageArray = wp_get_attachment_image_src($id, $size);
-        $height = $imageArray[2];
+        $height     = $imageArray[2];
 
         return $height;
     }
@@ -106,9 +109,9 @@ class App extends Controller
     public static function get_ratio_percent($id, $size)
     {
         $imageArray = wp_get_attachment_image_src($id, $size);
-        $width = $imageArray[1];
-        $height = $imageArray[2];
-        $percent = round(($height / $width * 100), 2) . '%';
+        $width      = $imageArray[1];
+        $height     = $imageArray[2];
+        $percent    = round(($height / $width * 100), 2) . '%';
 
         return $percent;
     }
@@ -116,37 +119,12 @@ class App extends Controller
     public static function get_img_object($id, $size)
     {
         return (object) [
-            'placeholder' => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
-            'src' => wp_get_attachment_image_src($id, $size)[0],
-            'srcset' => wp_get_attachment_image_srcset($id, $size),
-            'alt' => get_post_meta($id, '_wp_attachment_image_alt', true),
+            'placeholder'   => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+            'src'           => wp_get_attachment_image_src($id, $size)[0],
+            'srcset'        => wp_get_attachment_image_srcset($id, $size),
+            'alt'           => get_post_meta($id, '_wp_attachment_image_alt', true),
             'ratio_percent' => self::get_ratio_percent($id, $size),
         ];
-    }
-
-    /**
-     * Max charlength
-     */
-    public static function max_charlength($string, $charlength = 165)
-    {
-        $excerpt = strip_tags($string);
-        $excerptnew = '';
-        $charlength++;
-
-        if (mb_strlen($excerpt) > $charlength) {
-            $subex = mb_substr($excerpt, 0, $charlength - 5);
-            $exwords = explode(' ', $subex);
-            $excut = -(mb_strlen($exwords[count($exwords) - 1]));
-            if ($excut < 0) {
-                $excerptnew .= mb_substr($subex, 0, $excut);
-            } else {
-                $excerptnew .= $subex;
-            }
-            $excerptnew .= '…';
-        } else {
-            $excerptnew .= $excerpt;
-        }
-        return $excerptnew;
     }
 
     /**
@@ -155,7 +133,7 @@ class App extends Controller
      */
     public static function menu_items($menu)
     {
-        $id = get_nav_menu_locations($menu);
+        $id    = get_nav_menu_locations($menu);
         $items = wp_get_nav_menu_items($id);
 
         if (is_array($items)) {
