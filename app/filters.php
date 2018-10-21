@@ -27,10 +27,10 @@ add_filter('body_class', function (array $classes) {
 });
 
 /**
- * Add "… Continued" to the excerpt
+ * Add "…" to the excerpt
  */
 add_filter('excerpt_more', function () {
-    return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
+    return ' &hellip;';
 });
 
 /**
@@ -38,7 +38,7 @@ add_filter('excerpt_more', function () {
  */
 collect([
     'index', '404', 'archive', 'author', 'category', 'tag', 'taxonomy', 'date', 'home',
-    'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment'
+    'frontpage', 'page', 'paged', 'search', 'single', 'singular', 'attachment',
 ])->map(function ($type) {
     add_filter("{$type}_template_hierarchy", __NAMESPACE__ . '\\filter_templates');
 });
@@ -52,8 +52,10 @@ add_filter('template_include', function ($template) {
     }, []);
     if ($template) {
         echo template($template, $data);
+
         return get_stylesheet_directory() . '/index.php';
     }
+
     return $template;
 }, PHP_INT_MAX);
 
@@ -75,8 +77,37 @@ add_filter('comments_template', function ($comments_template) {
 
     if ($theme_template) {
         echo template($theme_template, $data);
+
         return get_stylesheet_directory() . '/index.php';
     }
 
     return $comments_template;
 }, 100);
+
+/**
+ * Filters Gravity Forms submit buttons
+ * Replaces the forms <input> buttons with <button> while maintaining attributes from original <input>.
+ *
+ * @param string $button Contains the <input> tag to be filtered.
+ * @param object $form Contains all the properties of the current form.
+ *
+ * @return string The filtered button.
+ */
+add_filter('gform_submit_button', function ($button, $form) {
+    $dom = new \DOMDocument();
+    $dom->loadHTML($button);
+    $input = $dom->getElementsByTagName('input')->item(0);
+    $new_button = $dom->createElement('button');
+    $new_button->appendChild($dom->createTextNode($input->getAttribute('value')));
+
+    $input->removeAttribute('value');
+    foreach ($input->attributes as $attribute) {
+        $new_button->setAttribute($attribute->name, $attribute->value);
+    }
+    $classes = $new_button->getAttribute('class');
+    $classes .= ' c-btn c-btn--primary';
+    $new_button->setAttribute('class', $classes);
+    $input->parentNode->replaceChild($new_button, $input);
+
+    return $dom->saveHtml($new_button);
+}, 10, 2);
