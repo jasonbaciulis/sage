@@ -19,6 +19,7 @@ add_filter('acf/settings/save_json', function ($path) {
     // Always return
     return $path;
 });
+
 /**
  * Set local json load path
  */
@@ -38,6 +39,7 @@ add_filter('acf/settings/load_json', function ($paths) {
  */
 add_filter('acf/format_value/type=text', function ($value, $post_id, $field) {
     $value = sanitize_text_field($value);
+
     return $value;
 }, 10, 3);
 
@@ -52,13 +54,13 @@ add_action('init', function () {
         if (function_exists('pll_languages_list')) {
             // Main Theme Settings Page
             $parent = acf_add_options_page([
-                'page_title' => 'Theme General Settings',
-                'menu_title' => 'Theme Settings',
-                'menu_slug' => 'theme-general-settings',
-                'capability' => 'edit_posts',
+                'page_title'  => 'Theme General Settings',
+                'menu_title'  => 'Theme Settings',
+                'menu_slug'   => 'theme-general-settings',
+                'capability'  => 'edit_posts',
                 'parent_slug' => '',
-                'position' => 2, // Below 'Dashboard' menu item
-                'icon_url' => 'dashicons-admin-generic',
+                'position'    => 2, // Below 'Dashboard' menu item
+                'icon_url'    => 'dashicons-admin-generic',
             ]);
 
             /**
@@ -68,8 +70,8 @@ add_action('init', function () {
             acf_add_options_sub_page([
                 'page_title' => 'Global Options',
                 'menu_title' => __('Global Options', 'sage'),
-                'menu_slug' => 'acf-options',
-                'parent' => $parent['menu_slug']
+                'menu_slug'  => 'acf-options',
+                'parent'     => $parent['menu_slug'],
             ]);
 
             /**
@@ -78,31 +80,24 @@ add_action('init', function () {
              */
             $languages = pll_languages_list();
 
-            // $languages = [];
-            // $translations = pll_languages_list();
-
-            // foreach ($translations as $lang) {
-            //     array_push($languages, $lang);
-            // }
-
             foreach ($languages as $lang) {
                 acf_add_options_sub_page([
                     'page_title' => 'Options (' . strtoupper($lang) . ')',
                     'menu_title' => __('Options (' . strtoupper($lang) . ')', 'sage'),
-                    'menu_slug' => "options-${lang}",
-                    'post_id' => $lang,
-                    'parent' => $parent['menu_slug']
+                    'menu_slug'  => "options-${lang}",
+                    'post_id'    => $lang,
+                    'parent'     => $parent['menu_slug'],
                 ]);
             }
         } else {
             acf_add_options_page([
-                'page_title' => 'Theme General Settings',
-                'menu_title' => 'Theme Settings',
-                'menu_slug' => 'theme-general-settings',
-                'capability' => 'edit_posts',
+                'page_title'  => 'Theme General Settings',
+                'menu_title'  => 'Theme Settings',
+                'menu_slug'   => 'theme-general-settings',
+                'capability'  => 'edit_posts',
                 'parent_slug' => '',
-                'position' => 2, // Below 'Dashboard' menu item
-                'icon_url' => 'dashicons-admin-generic',
+                'position'    => 2, // Below 'Dashboard' menu item
+                'icon_url'    => 'dashicons-admin-generic',
             ]);
         }
     }
