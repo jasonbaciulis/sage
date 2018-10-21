@@ -20,7 +20,7 @@ add_action('wp_head', function () {
             '//s0.wp.com',
             '//s.gravatar.com',
             '//stats.wordpress.com',
-            '//www.google-analytics.com'
+            '//www.google-analytics.com',
         ];
         foreach ($dns_domains as $domain) {
             if (!empty($domain)) {
@@ -42,12 +42,12 @@ add_filter('wp_resource_hints', function ($urls, $relation_type) {
     $font_services = [
         [
             'handle' => 'google-fonts',
-            'url' => 'https://fonts.gstatic.com',
+            'url'    => 'https://fonts.gstatic.com',
         ],
         [
             'handle' => 'fonts.net-fonts',
-            'url' => 'https://fast.fonts.net',
-        ]
+            'url'    => 'https://fast.fonts.net',
+        ],
     ];
 
     foreach ($font_services as $font) {
@@ -125,6 +125,7 @@ add_action('init', function () {
                 }
             }
         }
+
         return $urls;
     }, 10, 2);
 });
@@ -185,3 +186,27 @@ remove_action('template_redirect', 'wp_shortlink_header', 11, 0);
  */
 remove_action('wp_head', 'rest_output_link_wp_head');
 remove_action('template_redirect', 'rest_output_link_header', 11, 0);
+
+/**
+ * Gravity forms
+ * Force Gravity Forms to init scripts in the footer and ensure that the DOM is loaded before scripts are executed
+ * @link https://gist.github.com/eriteric/5d6ca5969a662339c4b3
+ */
+add_filter('gform_init_scripts_footer', '__return_true');
+add_filter('gform_cdata_open', function ($content = '') {
+    if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
+        return $content;
+    }
+    $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
+
+    return $content;
+}, 1);
+
+add_filter('gform_cdata_close', function ($content = '') {
+    if ((defined('DOING_AJAX') && DOING_AJAX) || isset($_POST['gform_ajax'])) {
+        return $content;
+    }
+    $content = ' }, false );';
+
+    return $content;
+}, 99);
