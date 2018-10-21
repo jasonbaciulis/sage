@@ -33,8 +33,7 @@ textarea {
   font-family: inherit;
   font-size: 16px;
   line-height: 1.5;
-
-  @include transition($input-transition);
+  transition: all 0.2s ease;
 
   // Unstyle the caret on `<select>`s in IE10+.
   &::-ms-expand {
@@ -47,7 +46,7 @@ textarea {
 
   // Placeholder
   &::placeholder {
-    color: $input-placeholder-color;
+    color: gray;
     // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
   }
@@ -59,7 +58,7 @@ textarea {
   // don't honor that edge case; we style them as disabled anyway.
   &:disabled,
   &[readonly] {
-    background-color: $input-disabled-bg;
+    background-color: gray;
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
   }

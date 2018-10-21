@@ -1,11 +1,11 @@
-.o-section {
+.c-section {
   @include responsive-type(15px, 30px, margin-top);
   @include responsive-type(15px, 30px, margin-bottom);
 
   //
   // Frontpage
   //
-  &--frontpage {
+  &-frontpage {
     @include responsive-type(40px, 80px, padding-top);
     @include responsive-type(40px, 80px, padding-bottom);
   }
@@ -13,7 +13,7 @@
   //
   // Blog
   //
-  &--blog {
+  &-blog {
     @include responsive-type(40px, 80px, margin-top);
     @include responsive-type(40px, 80px, margin-bottom);
   }
@@ -21,7 +21,7 @@
   //
   // Contact
   //
-  &--contact {
+  &-contact {
     @include responsive-type(40px, 80px, margin-top);
     @include responsive-type(40px, 80px, margin-bottom);
   }
@@ -29,7 +29,7 @@
   //
   // 404
   //
-  &--404 {
+  &-404 {
     @include responsive-type(40px, 80px, margin-top);
     @include responsive-type(40px, 80px, margin-bottom);
   }

@@ -1,0 +1,11 @@
+a {
+  color: theme-color('primary');
+  transition: all 0.15s ease;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken(theme-color('primary'), 5%);
+    text-decoration: none;
+  }
+}

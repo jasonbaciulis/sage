@@ -1,0 +1,12 @@
+.o-link-bare {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+  }
+}
