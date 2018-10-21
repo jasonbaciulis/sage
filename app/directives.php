@@ -13,20 +13,6 @@ add_action('after_setup_theme', function () {
     });
 
     /**
-     * Create @posts() Blade directive
-     */
-    $sage->directive('posts', function ($expression) {
-        return "<?php while ($expression->have_posts()) : $expression->the_post(); ?>";
-    });
-
-    /**
-     * Create @endposts Blade directive
-     */
-    $sage->directive('endposts', function () {
-        return '<?php endwhile; wp_reset_postdata(); ?>';
-    });
-
-    /**
     * Create @field() Blade directive
     */
     $sage->directive('field', function ($expression) {
@@ -48,21 +34,9 @@ add_action('after_setup_theme', function () {
     });
 
     /**
-     * Create @dump() Blade directive
+     * Create @dumps() Blade directive
      */
-    $sage->directive('dump', function ($expression) {
+    $sage->directive('dumps', function ($expression) {
         return "<?php var_dump($expression) ?>";
-    });
-
-    /**
-     * Create @icon() Blade directive
-     */
-    $sage->directive('icon', function ($expression, $class = null) {
-        if (!empty($class)) {
-            $svg = '<svg class="' . $class . '"><use xlink:href="#' . $expression . '"></svg>';
-        } else {
-            $svg = '<svg><use xlink:href="#' . $expression . '"></svg>';
-        }
-        return $svg;
     });
 });
