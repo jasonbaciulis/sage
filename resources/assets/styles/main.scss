@@ -1,4 +1,3 @@
-
 /*
 CSS is written in BEM with Namespaces and I'd recommend to continue this approach to keep CSS scalable and maintainable for other developers.
 
@@ -21,8 +20,7 @@ Prefix your imports with `~` to grab from node_modules/
 */
 
 // SETTINGS
-@import "settings/settings.bs-global";
-@import "settings/settings.bs-components";
+@import "settings/settings.bootstrap";
 @import "settings/settings.variables";
 @import "settings/settings.mixins";
 
@@ -45,7 +43,7 @@ Prefix your imports with `~` to grab from node_modules/
 @import "objects/objects.list-bare";
 @import "objects/objects.link-bare";
 @import "objects/objects.ratio";
-@import "objects/objects.wrapper";
+@import "objects/objects.layout";
 
 // COMPONENTS
 @import "components/components.alert";
@@ -72,9 +70,7 @@ Prefix your imports with `~` to grab from node_modules/
 @import "components/components.video";
 
 // UTILITIES
-@import "utilities/utilities.align-text";
 @import "utilities/utilities.loaded";
-@import "utilities/utilities.overflow";
 
 // SCOPES
 @import "scopes/scopes.editor";
