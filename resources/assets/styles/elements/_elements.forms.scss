@@ -1,25 +1,4 @@
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  @extend .c-btn;
-  @extend .c-btn--primary;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="search"],
-input[type="number"],
-input[type="tel"],
-input[type="range"],
-input[type="date"],
-input[type="month"],
-input[type="week"],
-input[type="time"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="color"],
+input,
 select,
 textarea {
   display: block;
@@ -41,8 +20,10 @@ textarea {
     border: 0;
   }
 
-  // Customize the `:focus` state to imitate native WebKit styles.
-  @include form-control-focus();
+  &:focus {
+    border-color: #000;
+    outline: 0;
+  }
 
   // Placeholder
   &::placeholder {
@@ -62,4 +43,35 @@ textarea {
     // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
   }
+}
+
+// select {
+//   padding-right: 25px;
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   appearance: none;
+//   background-image: url(../images/icon-sort-down.png);
+//   background-position: calc(100% - 10px) 50%;
+//   background-repeat: no-repeat;
+
+//   // Hide the caret in IE10+.
+//   &::-ms-expand {
+//     display: none;
+//   }
+// }
+
+// option {
+//   padding: em(10, 16) em(13, 16);
+//   white-space: normal;
+// }
+
+// label {
+//   font-weight: 600;
+// }
+
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  @extend .c-btn;
+  @extend .c-btn--primary;
 }
