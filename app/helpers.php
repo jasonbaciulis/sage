@@ -18,6 +18,7 @@ function sage($abstract = null, $parameters = [], Container $container = null)
     if (!$abstract) {
         return $container;
     }
+
     return $container->bound($abstract)
         ? $container->makeWith($abstract, $parameters)
         : $container->makeWith("sage.{$abstract}", $parameters);
@@ -42,6 +43,7 @@ function config($key = null, $default = null)
     if (is_array($key)) {
         return sage('config')->set($key);
     }
+
     return sage('config')->get($key, $default);
 }
 
@@ -83,7 +85,7 @@ function filter_templates($templates)
 {
     $paths = apply_filters('sage/filter_templates/paths', [
         'views',
-        'resources/views'
+        'resources/views',
     ]);
     $paths_pattern = '#^(' . implode('|', $paths) . ')/#';
 
@@ -134,5 +136,219 @@ function display_sidebar()
 {
     static $display;
     isset($display) || $display = apply_filters('sage/display_sidebar', false);
+
     return $display;
+}
+
+/**
+ * This little function will return the contents of already optimized assets
+ * Very useful for inlining SVG files in templates but keeping them clean
+ * @param string i.e: "images/icon.svg"
+ */
+function get_file_contents($asset)
+{
+    $asset_url = asset_path($asset);
+
+    if (fopen($asset_url, 'r')) {
+        return file_get_contents($asset_url);
+    } else {
+        return 'Could not locate the file. Make sure it exists! Or try running "yarn build" again';
+    }
+}
+
+/**
+ * Shorter function to get specific img size src
+ */
+function get_img_src($id, $size)
+{
+    return wp_get_attachment_image_url($id, $size);
+}
+
+/**
+ * Shorter function to get specific img size srcset
+ */
+function get_img_srcset($id, $size)
+{
+    return wp_get_attachment_image_srcset($id, $size);
+}
+
+/**
+ * Get image aspect ratio
+ */
+function get_img_aspectratio($id, $size)
+{
+    $imageArray = wp_get_attachment_image_src($id, $size);
+    $width      = $imageArray[1];
+    $height     = $imageArray[2];
+
+    return $ratio = "$width/$height";
+}
+
+/**
+ * Get image width
+ */
+function get_img_width($id, $size)
+{
+    $imageArray = wp_get_attachment_image_src($id, $size);
+    $width      = $imageArray[1];
+
+    return $width;
+}
+
+/**
+ * Get image height
+ */
+function get_img_height($id, $size)
+{
+    $imageArray = wp_get_attachment_image_src($id, $size);
+    $height     = $imageArray[2];
+
+    return $height;
+}
+
+function img_placeholder()
+{
+    return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+}
+
+/**
+ * Calculate a percentage of image ratio to dynamically set padding bottom for image aspect ratio containers
+ */
+function get_img_ratio($id, $size)
+{
+    $imageArray = wp_get_attachment_image_src($id, $size);
+    $width      = $imageArray[1];
+    $height     = $imageArray[2];
+    $percent    = round(($height / $width * 100), 2) . '%';
+
+    return $percent;
+}
+
+function get_img_object($id, $size)
+{
+    return (object) [
+        'placeholder'   => img_placeholder(),
+        'src'           => wp_get_attachment_image_url($id, $size),
+        'srcset'        => wp_get_attachment_image_srcset($id, $size),
+        'alt'           => get_post_meta($id, '_wp_attachment_image_alt', true),
+        'ratio_percent' => get_img_ratio($id, $size),
+    ];
+}
+
+/**
+ * Retrieve menu items in an array
+ * @link https://wordpress.stackexchange.com/questions/111060/retrieving-a-list-of-menu-items-in-an-array
+ */
+function menu_items($menu)
+{
+    $id    = get_nav_menu_locations()[$menu];
+    $items = wp_get_nav_menu_items($id);
+
+    if (is_array($items)) {
+        return $items;
+    } else {
+        return [];
+    }
+}
+
+function top_lvl_menu_items($menu)
+{
+    $menu_items         = menu_items($menu);
+    $top_lvl_menu_items = [];
+
+    // Get the top level menu items in an array
+    if (is_array($menu_items)) {
+        foreach ($menu_items as $item) {
+            if ($item->menu_item_parent == 0) {
+                array_push($top_lvl_menu_items, $item);
+            }
+        }
+    }
+
+    return $top_lvl_menu_items;
+}
+
+function show_whats_loaded()
+{
+    global $wp_scripts;
+    global $wp_styles;
+
+    $string = '<div class="container">';
+
+    $string .= '<h2>Scripts:</h2>';
+
+    foreach ($wp_scripts->queue as $script) {
+        $string .= '<p>';
+        $string .= '<span class="d-block"><strong>Handle: </strong>' . $wp_scripts->registered[$script]->handle . '</span>';
+        $string .= '<span class="d-block"><strong>Source: </strong>' . $wp_scripts->registered[$script]->src . '</span>';
+        $string .= '</p>';
+    }
+
+    $string .= '<h2>Styles:</h2>';
+
+    foreach ($wp_styles->queue as $style) {
+        $string .= '<p>';
+        $string .= '<span class="d-block"><strong>Handle: </strong>' . $wp_styles->registered[$style]->handle . '</span>';
+        $string .= '<span class="d-block"><strong>Source: </strong>' . $wp_styles->registered[$style]->src . '</span>';
+        $string .= '</p>';
+    }
+
+    $string .= '</div>'; // container
+
+    return $string;
+}
+
+/**
+ * Convert a string to a slug-friendly string
+ * e.g. "I'm just a string!" > "im-just-a-string"
+ * @param $text
+ * @return mixed|string
+ */
+function str_to_slug($text)
+{
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    // trim
+    $text = trim($text, '-');
+    // remove duplicate -
+    $text = preg_replace('~-+~', '-', $text);
+    // WP Sanitize HTML Class
+    $text = sanitize_html_class($text);
+    // lowercase
+    $text = strtolower($text);
+    if (empty($text)) {
+        return 'n-a';
+    }
+
+    return $text;
+}
+
+/**
+ * Max charlength
+ */
+function max_charlength($string, $charlength = 110)
+{
+    $excerpt    = strip_tags($string);
+    $excerptnew = '';
+    $charlength++;
+
+    if (mb_strlen($excerpt) > $charlength) {
+        $subex   = mb_substr($excerpt, 0, $charlength - 5);
+        $exwords = explode(' ', $subex);
+        $excut   = -(mb_strlen($exwords[count($exwords) - 1]));
+        if ($excut < 0) {
+            $excerptnew .= mb_substr($subex, 0, $excut);
+        } else {
+            $excerptnew .= $subex;
+        }
+        $excerptnew .= '…';
+    } else {
+        $excerptnew .= $excerpt;
+    }
+
+    return $excerptnew;
 }
