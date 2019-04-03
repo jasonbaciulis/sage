@@ -14,8 +14,8 @@ use Roots\Sage\Container;
  * @param string $title
  */
 $sage_error = function ($message, $subtitle = '', $title = '') {
-    $title = $title ?: __('Sage &rsaquo; Error', 'sage');
-    $footer = '<a href="https://roots.io/sage/docs/">roots.io/sage/docs/</a>';
+    $title   = $title ?: __('Sage &rsaquo; Error', 'sage');
+    $footer  = '<a href="https://roots.io/sage/docs/">roots.io/sage/docs/</a>';
     $message = "<h1>{$title}<br><small>{$subtitle}</small></h1><p>{$message}</p><p>{$footer}</p>";
     wp_die($message, $title);
 };
@@ -58,7 +58,7 @@ array_map(function ($file) use ($sage_error) {
     if (!locate_template($file, true, true)) {
         $sage_error(sprintf(__('Error locating <code>%s</code> for inclusion.', 'sage'), $file), 'File not found');
     }
-}, ['helpers', 'setup', 'filters', 'admin', 'lazyload', 'directives', 'optimizations', 'advanced-custom-fields', 'bem-nav-walker']);
+}, ['helpers', 'setup', 'filters', 'admin', 'lazyload', 'directives', 'optimizations', 'acf', 'bem-nav-walker']);
 
 /**
  * Here's what's happening with these hooks:
@@ -86,7 +86,7 @@ Container::getInstance()
     ->bindIf('config', function () {
         return new Config([
             'assets' => require dirname(__DIR__) . '/config/assets.php',
-            'theme' => require dirname(__DIR__) . '/config/theme.php',
-            'view' => require dirname(__DIR__) . '/config/view.php',
+            'theme'  => require dirname(__DIR__) . '/config/theme.php',
+            'view'   => require dirname(__DIR__) . '/config/view.php',
         ]);
     }, true);
