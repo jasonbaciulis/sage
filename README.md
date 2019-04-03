@@ -1,26 +1,21 @@
-# Sage Thrives
+# [Sage](https://roots.io/sage/)
+[![Packagist](https://img.shields.io/packagist/vpre/roots/sage.svg?style=flat-square)](https://packagist.org/packages/roots/sage)
+[![devDependency Status](https://img.shields.io/david/dev/roots/sage.svg?style=flat-square)](https://david-dm.org/roots/sage#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/roots/sage.svg?style=flat-square)](https://travis-ci.org/roots/sage)
 
-Sage Thrives is a fork of [Sage](https://roots.io/sage/) WordPress starter theme with a modern development workflow. Sage Thrives retains all the benefits of Sage but is more opinionated and has some additional features.
+Sage is a WordPress starter theme with a modern development workflow.
 
-## New features
+## Features
 
-* CSS framework inspired by [ITCSS](https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/) and combined with [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) 4.1
-* BEM Nav Walker
-* [lazysizes.js](https://github.com/aFarkas/lazysizes) for progressive image loading
-* Responsive background image setup using a tiny JS script and Blade components
-* [PurgeCSS](https://github.com/FullHuman/purgecss) for removal of unused CSS
-* [ACF](https://www.advancedcustomfields.com/) Pro file for setting up options pages, saving fields to JSON files and other settings
-* WordPress performance optimizations
-* Usefull code snippets inside App controller
-* Few additional Blade directives
-* Blade image partial for easilly including responsive images
-
-## Sage features
-
+* Sass for stylesheets
+* Modern JavaScript
 * [Webpack](https://webpack.github.io/) for compiling assets, optimizing images, and concatenating and minifying files
 * [Browsersync](http://www.browsersync.io/) for synchronized browser testing
-* [Blade](https://laravel.com/docs/5.5/blade) as a templating engine
+* [Blade](https://laravel.com/docs/5.6/blade) as a templating engine
 * [Controller](https://github.com/soberwp/controller) for passing data to Blade templates
+* CSS framework (optional): [Bootstrap 4](https://getbootstrap.com/), [Bulma](https://bulma.io/), [Foundation](https://foundation.zurb.com/), [Tachyons](http://tachyons.io/), [Tailwind](https://tailwindcss.com/)
+
+See a working example at [roots-example-project.com](https://roots-example-project.com/).
 
 ## Requirements
 
@@ -32,29 +27,59 @@ Make sure all dependencies have been installed before moving on:
 * [Node.js](http://nodejs.org/) >= 8.0.0
 * [Yarn](https://yarnpkg.com/en/docs/install)
 
-Recommeded VS Code extension:
-
-* [PHP CS Fixer](https://marketplace.visualstudio.com/items?itemName=junstyle.php-cs-fixer) - Sage uses PSR-2 coding standards so this extension formats your PHP code on save using the same standards.
-
 ## Theme installation
 
-Clone the git repo.
+Install Sage using Composer from your WordPress themes directory (replace `your-theme-name` below with the name of your theme):
 
 ```shell
-git clone git@github.com:jasonbaciulis/sage-thrives.git
+# @ app/themes/ or wp-content/themes/
+$ composer create-project roots/sage your-theme-name
 ```
 
-Rename `sage-thrives` with the name of your theme.
+To install the latest development version of Sage, add `dev-master` to the end of the command:
 
-Run `composer install`. This will make sure that the Composer autoload files are generated and saved to the `vendor/` directory.
+```shell
+$ composer create-project roots/sage your-theme-name dev-master
+```
+
+During theme installation you will have options to update `style.css` theme headers, select a CSS framework, and configure Browsersync.
+
+## Theme structure
+
+```shell
+themes/your-theme-name/   # → Root of your Sage based theme
+├── app/                  # → Theme PHP
+│   ├── Controllers/      # → Controller files
+│   ├── admin.php         # → Theme customizer setup
+│   ├── filters.php       # → Theme filters
+│   ├── helpers.php       # → Helper functions
+│   └── setup.php         # → Theme setup
+├── composer.json         # → Autoloading for `app/` files
+├── composer.lock         # → Composer lock file (never edit)
+├── dist/                 # → Built theme assets (never edit)
+├── node_modules/         # → Node.js packages (never edit)
+├── package.json          # → Node.js dependencies and scripts
+├── resources/            # → Theme assets and templates
+│   ├── assets/           # → Front-end assets
+│   │   ├── config.json   # → Settings for compiled assets
+│   │   ├── build/        # → Webpack and ESLint config
+│   │   ├── fonts/        # → Theme fonts
+│   │   ├── images/       # → Theme images
+│   │   ├── scripts/      # → Theme JS
+│   │   └── styles/       # → Theme stylesheets
+│   ├── functions.php     # → Composer autoloader, theme includes
+│   ├── index.php         # → Never manually edit
+│   ├── screenshot.png    # → Theme screenshot for WP admin
+│   ├── style.css         # → Theme meta information
+│   └── views/            # → Theme templates
+│       ├── layouts/      # → Base templates
+│       └── partials/     # → Partial templates
+└── vendor/               # → Composer packages (never edit)
+```
 
 ## Theme setup
 
 Edit `app/setup.php` to enable or disable theme features, setup navigation menus, post thumbnail sizes, and sidebars.
-
-Edit `app/filters.php` to add or remove some theme functionality.
-
-Edit `app/optimizations.php` to enable or disable additional theme optimization features.
 
 ## Theme development
 
@@ -69,12 +94,22 @@ Edit `app/optimizations.php` to enable or disable additional theme optimization 
 * `yarn build` — Compile and optimize the files in your assets directory
 * `yarn build:production` — Compile assets for production
 
-## Sage documentation
+## Documentation
 
 * [Sage documentation](https://roots.io/sage/docs/)
 * [Controller documentation](https://github.com/soberwp/controller#usage)
 
-## Sage community
+## Contributing
+
+Contributions are welcome from everyone. We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+
+## Sage sponsors
+
+Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+
+<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"></a> <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"></a> <a href="https://www.itineris.co.uk/"><img src="https://cdn.roots.io/app/uploads/itineris.svg" alt="itineris" width="200" height="150"></a>
+
+## Community
 
 Keep track of development and community news.
 
@@ -82,7 +117,4 @@ Keep track of development and community news.
 * Follow [@rootswp on Twitter](https://twitter.com/rootswp)
 * Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 * Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-
-## Contributing
-
-Contributions are welcome from everyone.
+* Listen to the [Roots Radio podcast](https://roots.io/podcast/)
