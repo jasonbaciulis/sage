@@ -9,24 +9,29 @@
  * @link https://github.com/aFarkas/lazysizes
  */
 
-add_filter('the_content', function ($content) {
+function lazyload_content_images($content)
+{
     if (empty($content)) {
         return $content;
     }
 
-    $dom = new DOMDocument();
+    // converts all special characters to utf-8
+    $content = mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8');
+
+    $dom = new \DOMDocument('1.0', 'utf-8');
     libxml_use_internal_errors(true);
-    $dom->loadHTML($content);
+    // it loads the content without adding enclosing html/body tags and also the doctype declaration
+    $dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     libxml_clear_errors();
 
     foreach ($dom->getElementsByTagName('img') as $img) {
         if ($img->hasAttribute('srcset')) {
-            $sizes = 'auto';
+            $sizes   = 'auto';
             $classes = $img->getAttribute('class');
-            $src = $img->getAttribute('src');
-            $srcset = $img->getAttribute('srcset');
-            $width = $img->getAttribute('width');
-            $height = $img->getAttribute('height');
+            $src     = $img->getAttribute('src');
+            $srcset  = $img->getAttribute('srcset');
+            $width   = $img->getAttribute('width');
+            $height  = $img->getAttribute('height');
             // Calculate aspect ratio for lazysizes plugin to size image correctly
             $aspectratio = "$width/$height";
             $classes .= ' lazyload';
@@ -44,5 +49,9 @@ add_filter('the_content', function ($content) {
             $content = $dom->saveHTML();
         }
     }
+
     return $content;
-}, 20, 1);
+}
+
+add_filter('the_content', __NAMESPACE__ . '\\lazyload_content_images', 20, 1);
+add_filter('acf_the_content', __NAMESPACE__ . '\\lazyload_content_images', 20, 1);
