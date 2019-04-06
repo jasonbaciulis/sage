@@ -41,7 +41,8 @@ Prefix your imports with `~` to grab from node_modules/
 // OBJECTS
 @import "objects/objects.center";
 @import "objects/objects.list-bare";
-@import "objects/objects.link-bare";
+@import "objects/objects.link-reset";
+@import "objects/objects.full-bleed";
 @import "objects/objects.ratio";
 @import "objects/objects.layout";
 
@@ -71,6 +72,7 @@ Prefix your imports with `~` to grab from node_modules/
 
 // UTILITIES
 @import "utilities/utilities.loaded";
+@import "utilities/utilities.display";
 
 // SCOPES
 @import "scopes/scopes.editor";
