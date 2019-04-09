@@ -1,10 +1,7 @@
 <?php
+namespace App\Controllers\Partials;
 
-namespace App\Controllers;
-
-use Sober\Controller\Controller;
-
-class Single extends Controller
+trait Article
 {
     /**
      * Returns the Post Type of current query
@@ -15,7 +12,7 @@ class Single extends Controller
         $queried_object = get_queried_object();
 
         if ($queried_object instanceof \WP_Term) {
-            $taxonomy  = get_taxonomy($queried_object->taxonomy);
+            $taxonomy = get_taxonomy($queried_object->taxonomy);
             $post_type = head($taxonomy->object_type);
         } else {
             $post_type = !empty($queried_object->name) ? $queried_object->name : get_post_type();
@@ -31,31 +28,23 @@ class Single extends Controller
     public function postTypeCategoryTaxonomy(): string
     {
         $post_type = $this->postType();
-        $taxonomy  = '';
+        $taxonomy = '';
 
-        if (!empty($post_type)) {
+        if (! empty($post_type)) {
             $taxonomy = 'post' === $post_type ? 'category' : "{$post_type}_category";
         }
 
         return $taxonomy;
     }
 
-    public function primaryTermId()
+    public function relatedArticles()
     {
-        return App::getPrimaryTermID($this->data['post_type']);
-    }
-
-    public function termName()
-    {
-        $term_name = get_the_category_by_ID($this->data['primary_term_id']);
-
-        return !is_wp_error($term_name) ? $term_name : '';
-    }
-
-    public function termLink()
-    {
-        $term_link = get_term_link($this->data['primary_term_id'], $this->data['post_type_category_taxonomy']);
-
-        return !is_wp_error($term_link) ? $term_link : '';
+        return array_map(function ($post) {
+            $post->time_ago = human_time_diff(get_the_time('U'), current_time('timestamp'));
+            $post->term_name = yoast_get_primary_term($this->postTypeCategoryTaxonomy(), $post->ID);
+            return $post;
+        }, get_posts([
+            'post_type' => $this->postType(),
+        ]));
     }
 }
