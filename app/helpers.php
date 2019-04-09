@@ -145,7 +145,7 @@ function display_sidebar()
  * Very useful for inlining SVG files in templates but keeping them clean
  * @param string i.e: "images/icon.svg"
  */
-function get_file_contents($asset)
+function file_contents($asset)
 {
     $asset_url = asset_path($asset);
 
@@ -156,26 +156,17 @@ function get_file_contents($asset)
     }
 }
 
-/**
- * Shorter function to get specific img size src
- */
-function get_img_src($id, $size)
+function img_src($id, $size)
 {
     return wp_get_attachment_image_url($id, $size);
 }
 
-/**
- * Shorter function to get specific img size srcset
- */
-function get_img_srcset($id, $size)
+function img_srcset($id, $size)
 {
     return wp_get_attachment_image_srcset($id, $size);
 }
 
-/**
- * Get image aspect ratio
- */
-function get_img_aspectratio($id, $size)
+function img_aspectratio($id, $size)
 {
     $imageArray = wp_get_attachment_image_src($id, $size);
     $width      = $imageArray[1];
@@ -184,10 +175,7 @@ function get_img_aspectratio($id, $size)
     return $ratio = "$width/$height";
 }
 
-/**
- * Get image width
- */
-function get_img_width($id, $size)
+function img_width($id, $size)
 {
     $imageArray = wp_get_attachment_image_src($id, $size);
     $width      = $imageArray[1];
@@ -195,10 +183,7 @@ function get_img_width($id, $size)
     return $width;
 }
 
-/**
- * Get image height
- */
-function get_img_height($id, $size)
+function img_height($id, $size)
 {
     $imageArray = wp_get_attachment_image_src($id, $size);
     $height     = $imageArray[2];
@@ -212,9 +197,10 @@ function img_placeholder()
 }
 
 /**
- * Calculate a percentage of image ratio to dynamically set padding bottom for image aspect ratio containers
+ * Calculate a percentage of image ratio.
+ * Used to dynamically set padding bottom for image aspect ratio containers.
  */
-function get_img_ratio($id, $size)
+function img_ratio($id, $size)
 {
     $imageArray = wp_get_attachment_image_src($id, $size);
     $width      = $imageArray[1];
@@ -224,14 +210,19 @@ function get_img_ratio($id, $size)
     return $percent;
 }
 
-function get_img_object($id, $size)
+function img_alt($id)
+{
+    return get_post_meta($id, '_wp_attachment_image_alt', true);
+}
+
+function img_object($id, $size)
 {
     return (object) [
         'placeholder'   => img_placeholder(),
-        'src'           => wp_get_attachment_image_url($id, $size),
-        'srcset'        => wp_get_attachment_image_srcset($id, $size),
-        'alt'           => get_post_meta($id, '_wp_attachment_image_alt', true),
-        'ratio_percent' => get_img_ratio($id, $size),
+        'src'           => img_src($id, $size),
+        'srcset'        => img_srcset($id, $size),
+        'alt'           => img_alt($id),
+        'ratio_percent' => img_ratio($id, $size),
     ];
 }
 
@@ -330,9 +321,9 @@ function str_to_slug($text)
 /**
  * Max charlength
  */
-function max_charlength($string, $charlength = 110)
+function max_charlength($html, $charlength = 110)
 {
-    $excerpt    = strip_tags($string);
+    $excerpt    = strip_tags($html);
     $excerptnew = '';
     $charlength++;
 
