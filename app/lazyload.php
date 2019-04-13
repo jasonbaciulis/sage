@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * Prepare content images for lazyloading using lazysizes.js.
  * One of the best things about lazysizes.js is that you don't have to worry about
