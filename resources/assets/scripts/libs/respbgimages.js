@@ -1,11 +1,9 @@
 /**
- * Code borrowed from Alexander Claes and slightly reworked
- * @see https://aclaes.com/responsive-background-images-with-srcset-and-sizes/
+ * @see https://roots.io/guides/responsive-background-images-using-blade-components/
  */
 
 // Searches for inner img and grabs src to apply as background-image
 export default class ResponsiveBackgroundImage {
-
   constructor(element) {
     this.element = element;
     this.img = element.querySelector('img');
@@ -21,7 +19,8 @@ export default class ResponsiveBackgroundImage {
   }
 
   update() {
-    let src = typeof this.img.currentSrc !== 'undefined' ? this.img.currentSrc : this.img.src;
+    let src =
+      typeof this.img.currentSrc !== 'undefined' ? this.img.currentSrc : this.img.src;
     if (this.src !== src) {
       this.src = src;
       this.element.style.backgroundImage = 'url("' + this.src + '")';
@@ -30,4 +29,3 @@ export default class ResponsiveBackgroundImage {
     }
   }
 }
-
