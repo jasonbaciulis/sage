@@ -1,0 +1,14 @@
+.c-icon {
+  display: inline-block;
+  font-size: inherit;
+  width: 1em;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+
+  &--lg {
+    font-size: 1.3333333333em;
+    line-height: 0.75em;
+    vertical-align: -0.225em;
+  }
+}
