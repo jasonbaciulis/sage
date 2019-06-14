@@ -47,15 +47,16 @@ class App extends Controller
     }
 
     /**
-     * Returns the Post Type Category taxonomy of current query
+     * Returns the Post Type Category taxonomy of current query.
+     *
      * @return string
      */
     public function postTypeCategoryTaxonomy(): string
     {
         $post_type = get_post_type();
-        $taxonomy  = '';
+        $taxonomy = '';
 
-        if (!empty($post_type)) {
+        if (! empty($post_type)) {
             $taxonomy = 'post' === $post_type ? 'category' : "{$post_type}_category";
         }
 
@@ -81,7 +82,7 @@ class App extends Controller
 
     public static function currentPageMetaDescription($post_id): string
     {
-        $post   = get_post($post_id);
+        $post = get_post($post_id);
         $ogdesc = \WPSEO_Meta::get_value('opengraph-description', $post_id);
         $ogdesc = wpseo_replace_vars($ogdesc, $post);
 
@@ -89,12 +90,17 @@ class App extends Controller
             $ogdesc = \WPSEO_Frontend::get_instance()->metadesc(false);
         }
 
-        if (!is_string($ogdesc) || (is_string($ogdesc) && '' === $ogdesc)) {
+        if (! is_string($ogdesc) || (is_string($ogdesc) && '' === $ogdesc)) {
             $ogdesc = str_replace('[&hellip;]', '&hellip;', wp_strip_all_tags(get_the_excerpt($post_id)));
         }
 
         $ogdesc = strip_shortcodes($ogdesc);
 
         return trim(apply_filters('wpseo_opengraph_desc', $ogdesc));
+    }
+
+    public static function getImage(int $attachment_id, string $size): string
+    {
+        return get_image($attachment_id, $size);
     }
 }

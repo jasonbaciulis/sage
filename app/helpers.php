@@ -10,12 +10,13 @@ use Roots\Sage\Container;
  * @param string $abstract
  * @param array  $parameters
  * @param Container $container
+ *
  * @return Container|mixed
  */
 function sage($abstract = null, $parameters = [], Container $container = null)
 {
     $container = $container ?: Container::getInstance();
-    if (!$abstract) {
+    if (! $abstract) {
         return $container;
     }
 
@@ -31,8 +32,11 @@ function sage($abstract = null, $parameters = [], Container $container = null)
  *
  * @param array|string $key
  * @param mixed $default
+ *
  * @return mixed|\Roots\Sage\Config
+ *
  * @copyright Taylor Otwell
+ *
  * @link https://github.com/laravel/framework/blob/c0970285/src/Illuminate/Foundation/helpers.php#L254-L265
  */
 function config($key = null, $default = null)
@@ -50,6 +54,7 @@ function config($key = null, $default = null)
 /**
  * @param string $file
  * @param array $data
+ *
  * @return string
  */
 function template($file, $data = [])
@@ -58,9 +63,11 @@ function template($file, $data = [])
 }
 
 /**
- * Retrieve path to a compiled blade view
+ * Retrieve path to a compiled blade view.
+ *
  * @param $file
  * @param array $data
+ *
  * @return string
  */
 function template_path($file, $data = [])
@@ -70,6 +77,7 @@ function template_path($file, $data = [])
 
 /**
  * @param $asset
+ *
  * @return string
  */
 function asset_path($asset)
@@ -79,6 +87,7 @@ function asset_path($asset)
 
 /**
  * @param string|string[] $templates Possible template files
+ *
  * @return array
  */
 function filter_templates($templates)
@@ -121,6 +130,7 @@ function filter_templates($templates)
 
 /**
  * @param string|string[] $templates Relative path to possible template files
+ *
  * @return string Location of the template
  */
 function locate_template($templates)
@@ -129,7 +139,8 @@ function locate_template($templates)
 }
 
 /**
- * Determine whether to show the sidebar
+ * Determine whether to show the sidebar.
+ *
  * @return bool
  */
 function display_sidebar()
@@ -142,8 +153,10 @@ function display_sidebar()
 
 /**
  * This little function will return the contents of already optimized assets
- * Very useful for inlining SVG files in templates but keeping them clean
+ * Very useful for inlining SVG files in templates but keeping them clean.
+ *
  * @param string i.e: "images/icon.svg"
+ * @param mixed $asset
  */
 function file_contents($asset)
 {
@@ -156,83 +169,61 @@ function file_contents($asset)
     }
 }
 
-function img_src($id, $size)
-{
-    return wp_get_attachment_image_url($id, $size);
-}
-
-function img_srcset($id, $size)
-{
-    return wp_get_attachment_image_srcset($id, $size);
-}
-
-function img_aspectratio($id, $size)
-{
-    $imageArray = wp_get_attachment_image_src($id, $size);
-    $width      = $imageArray[1];
-    $height     = $imageArray[2];
-
-    return $ratio = "$width/$height";
-}
-
-function img_width($id, $size)
-{
-    $imageArray = wp_get_attachment_image_src($id, $size);
-    $width      = $imageArray[1];
-
-    return $width;
-}
-
-function img_height($id, $size)
-{
-    $imageArray = wp_get_attachment_image_src($id, $size);
-    $height     = $imageArray[2];
-
-    return $height;
-}
-
-function img_placeholder()
+/**
+ * 1x1 px transparent gif.
+ */
+function img_placeholder(): string
 {
     return 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 }
 
 /**
  * Calculate a percentage of image ratio.
- * Used to dynamically set padding bottom for image aspect ratio containers.
+ * Used to dynamically set padding bottom for ratio bound containers.
+ *
+ * @param mixed $id
+ * @param mixed $size
  */
-function img_ratio($id, $size)
+function img_ratio(int $id, string $size): string
 {
-    $imageArray = wp_get_attachment_image_src($id, $size);
-    $width      = $imageArray[1];
-    $height     = $imageArray[2];
-    $percent    = round(($height / $width * 100), 2) . '%';
+    $image_array = wp_get_attachment_image_src($id, $size);
 
-    return $percent;
+    if (is_array($image_array)) {
+        $width = $image_array[1];
+        $height = $image_array[2];
+        $percent = round(($height / $width * 100), 2) . '%';
+
+        return $percent;
+    } else {
+        return '100%';
+    }
 }
 
-function img_alt($id)
+function get_image(int $attachment_id, string $size):? object
 {
-    return get_post_meta($id, '_wp_attachment_image_alt', true);
-}
-
-function img_object($id, $size)
-{
-    return (object) [
-        'placeholder'   => img_placeholder(),
-        'src'           => img_src($id, $size),
-        'srcset'        => img_srcset($id, $size),
-        'alt'           => img_alt($id),
-        'ratio_percent' => img_ratio($id, $size),
-    ];
+    if (wp_attachment_is_image($attachment_id)) {
+        return (object) [
+            'placeholder' => img_placeholder(),
+            'src' => wp_get_attachment_image_url($attachment_id, $size),
+            'srcset' => wp_get_attachment_image_srcset($attachment_id, $size),
+            'alt' => get_post_meta($attachment_id, '_wp_attachment_image_alt', true),
+            'ratio_percent' => img_ratio($attachment_id, $size),
+        ];
+    } else {
+        return null;
+    }
 }
 
 /**
- * Retrieve menu items in an array
+ * Retrieve menu items in an array.
+ *
  * @link https://wordpress.stackexchange.com/questions/111060/retrieving-a-list-of-menu-items-in-an-array
+ *
+ * @param mixed $menu
  */
 function menu_items($menu)
 {
-    $id    = get_nav_menu_locations()[$menu];
+    $id = get_nav_menu_locations()[$menu];
     $items = wp_get_nav_menu_items($id);
 
     if (is_array($items)) {
@@ -244,7 +235,7 @@ function menu_items($menu)
 
 function top_lvl_menu_items($menu)
 {
-    $menu_items         = menu_items($menu);
+    $menu_items = menu_items($menu);
     $top_lvl_menu_items = [];
 
     // Get the top level menu items in an array
@@ -291,8 +282,10 @@ function show_whats_loaded()
 
 /**
  * Convert a string to a slug-friendly string
- * e.g. "I'm just a string!" > "im-just-a-string"
+ * e.g. "I'm just a string!" > "im-just-a-string".
+ *
  * @param $text
+ *
  * @return mixed|string
  */
 function str_to_slug($text)
@@ -319,18 +312,21 @@ function str_to_slug($text)
 }
 
 /**
- * Max charlength
+ * Max charlength.
+ *
+ * @param mixed $html
+ * @param mixed $charlength
  */
 function max_charlength($html, $charlength = 110)
 {
-    $excerpt    = strip_tags($html);
+    $excerpt = strip_tags($html);
     $excerptnew = '';
     $charlength++;
 
     if (mb_strlen($excerpt) > $charlength) {
-        $subex   = mb_substr($excerpt, 0, $charlength - 5);
+        $subex = mb_substr($excerpt, 0, $charlength - 5);
         $exwords = explode(' ', $subex);
-        $excut   = -(mb_strlen($exwords[count($exwords) - 1]));
+        $excut = -(mb_strlen($exwords[count($exwords) - 1]));
         if ($excut < 0) {
             $excerptnew .= mb_substr($subex, 0, $excut);
         } else {
