@@ -1,4 +1,4 @@
-$headings-font-family: 'Arial', sans-serif;
+$headings-font-family: "Arial", sans-serif;
 
 $h1-font-size-sm: 24px;
 $h2-font-size-sm: 20px;
@@ -13,6 +13,16 @@ $h3-font-size-xl: 33px;
 $h4-font-size-xl: 22px;
 $h5-font-size-xl: 20px;
 $h6-font-size-xl: 18px;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 1em;
+  font-family: $headings-font-family;
+}
 
 h1 {
   @include responsive-type($h1-font-size-sm, $h1-font-size-xl);
@@ -36,14 +46,4 @@ h5 {
 
 h6 {
   @include responsive-type($h6-font-size-sm, $h6-font-size-xl);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 1em;
-  font-family: $headings-font-family;
 }

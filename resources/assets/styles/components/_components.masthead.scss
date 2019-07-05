@@ -1,3 +1,26 @@
 // .c-masthead {
 //   background-color: #fff;
+
+//   &__media {
+//     width: 100%;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//   }
+
+//   &__text {
+//     position: absolute;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     padding: $global-spacing-unit;
+//     margin-bottom: 0;
+//     background-color: rgba(0, 0, 0, 0.25);
+//     text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+//   }
+
+//   &__title {
+//     @include font-weight(black);
+//     @include font-size(60px);
+//   }
 // }

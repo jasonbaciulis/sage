@@ -1,41 +1,32 @@
 /*
 CSS is written in BEM with Namespaces and I'd recommend to continue this approach to keep CSS scalable and maintainable for other developers.
 
-CSS folder structure is based on InuitCSS and ITCSS:
-@see https://github.com/inuitcss/inuitcss
-@see https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+CSS architecture is based on ITCSS:
+https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
 
 Introduction to BEM:
-@see http://getbem.com/introduction/
+http://getbem.com/introduction/
 
 How to deal with troubles you'll face in BEM:
-@see https://www.smashingmagazine.com/2016/06/battling-bem-extended-edition-common-problems-and-how-to-avoid-them/
+https://www.smashingmagazine.com/2016/06/battling-bem-extended-edition-common-problems-and-how-to-avoid-them/
 
 More about Namespaces:
-@see https://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/
-
-Prefix your imports with `~` to grab from node_modules/
-@see https://github.com/webpack-contrib/sass-loader#imports
-@import "~some-node-module";
+https://csswizardry.com/2015/03/more-transparent-ui-code-with-namespaces/
 */
 
 // SETTINGS
-@import "settings/settings.bootstrap";
-@import "settings/settings.variables";
-@import "settings/settings.mixins";
+@import "settings/all";
 
 // TOOLS
-@import "tools/tools.bootstrap";
-@import "tools/tools.rfs";
-@import "tools/tools.hamburgers";
+@import "tools/all";
 
 // ELEMENTS
 @import "elements/elements.forms";
 @import "elements/elements.headings";
 @import "elements/elements.images";
-@import "elements/elements.page";
 @import "elements/elements.links";
 @import "elements/elements.lists";
+@import "elements/elements.page";
 @import "elements/elements.tables";
 @import "elements/elements.typography";
 
@@ -45,7 +36,7 @@ Prefix your imports with `~` to grab from node_modules/
 @import "objects/objects.link-reset";
 @import "objects/objects.full-bleed";
 @import "objects/objects.ratio";
-@import "objects/objects.layout";
+@import "objects/objects.wrappers";
 
 // COMPONENTS
 @import "components/components.alert";
@@ -56,6 +47,7 @@ Prefix your imports with `~` to grab from node_modules/
 @import "components/components.footer";
 @import "components/components.header";
 @import "components/components.icon";
+@import "components/components.lazyload";
 @import "components/components.lead";
 @import "components/components.loader";
 @import "components/components.list-features";
@@ -65,15 +57,14 @@ Prefix your imports with `~` to grab from node_modules/
 @import "components/components.navbar";
 @import "components/components.nav-primary";
 @import "components/components.newsletter";
-@import "components/components.search-form";
-@import "components/components.title";
-@import "components/components.subtitle";
 @import "components/components.section";
-@import "components/components.wp-classes";
+@import "components/components.subtitle";
+@import "components/components.testimonial";
+@import "components/components.title";
 @import "components/components.video";
+@import "components/components.wp-classes";
 
 // UTILITIES
-@import "utilities/utilities.loaded";
 @import "utilities/utilities.display";
 
 // SCOPES

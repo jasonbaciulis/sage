@@ -1,45 +1,23 @@
-$browser-context: 16;
-// Rem output
-@mixin font-size($sizeValue: $browser-context) {
-  font-size: ($sizeValue / $browser-context) * 1rem;
-}
-
-// Return just rem value
-@function rem($pixels) {
-  @return ($pixels / $browser-context) * 1rem;
-}
+///*----------------------------------*\
+//  #FUNCTIONS
+//\*----------------------------------*/
 
 // Return size in em
-@function em($pixels, $context: $browser-context) {
+@function em($pixels, $context: $global-font-size) {
   @return ($pixels / $context) * 1em;
 }
 
-@mixin list-bare() {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+// Convert any px value into its rem equivalent.
+@function rem($number) {
+  @return $number / $global-font-size * 1rem;
 }
 
-@mixin link-reset() {
-  color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:focus,
-  &:active {
-    outline: none;
-    text-decoration: none;
-    color: inherit;
-  }
+// Halve any input and round the result.
+@function halve($number) {
+  @return round($number/2);
 }
 
-@mixin center() {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
+/* stylelint-disable */
 
 //
 //  Function to create an optimized svg url
@@ -94,11 +72,6 @@ $browser-context: 16;
   @return url("data:image/svg+xml,#{$encoded}");
 }
 
-//  Background svg mixin
-@mixin background-svg($svg) {
-  background-image: svg-url($svg);
-}
-
 //  Helper function to replace characters in a string
 @function str-replace($string, $search, $replace: "") {
   $index: str-index($string, $search);
@@ -106,15 +79,10 @@ $browser-context: 16;
   @return if(
     $index,
     str-slice($string, 1, $index - 1) + $replace +
-      str-replace(
-        str-slice($string, $index + str-length($search)),
-        $search,
-        $replace
-      ),
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace),
     $string
   );
 }
-/* stylelint-disable */
 
 ///
 /// Casts a string into a number
@@ -220,111 +188,5 @@ $browser-context: 16;
 
   @return $str-1 $str-2;
 }
-
-// This Responsive Typography demo is to show the simplier syntax
-//
-// It asks just for the min size and the max size
-// h1 { @include responsive-type(22px, 38px); }
-//
-// Built of the back of the authors of:
-// http://www.sassmeister.com/gist/7f22e44ace49b5124eec
-// https://codepen.io/stowball/pen/JWoWWz?editors=0100
-
-// As most min-width values will be 320px and the max value often will be the max-width of the container
-// We set "smart" default values
-$responsive-type-min-width: 320px !default;
-$responsive-type-max-width: 1140px !default;
-
-// Base Responsive resize function that the type one uses
-@mixin responsive-resize(
-  $properties,
-  $min-vw,
-  $max-vw,
-  $min-value,
-  $max-value
-) {
-  @each $property in $properties {
-    #{$property}: $min-value;
-  }
-
-  @media (min-width: $min-vw) {
-    @each $property in $properties {
-      #{$property}: calc(
-        #{$min-value} +
-          #{strip-unit($max-value - $min-value)} *
-          (100vw - #{$min-vw}) /
-          #{strip-unit($max-vw - $min-vw)}
-      );
-    }
-  }
-
-  @media (min-width: $max-vw) {
-    @each $property in $properties {
-      #{$property}: $max-value;
-    }
-  }
-}
-
-// Type Focus helper mixin for the resize function
-@mixin responsive-type($min-value, $max-value, $properties: font-size) {
-  // use the global default values based on the assumption these
-  // will be contained in a block
-  $min-vw: $responsive-type-min-width;
-  $max-vw: $responsive-type-max-width;
-
-  // check if value is using the "@" api syntax.
-  @if (type-of($min-value) == "string") {
-    // So it is a string does it have a "@" symbol to break apart
-    @if (str-index($min-value, "@")) {
-      // split string helper
-      $min-value-list: split-str($min-value, "@");
-      // unquote the split and cast the string to a number
-      // http://hugogiraudel.com/2014/01/15/sass-string-to-number/
-      $min-value: to-number(unquote(nth($min-value-list, 1)));
-      $min-vw: to-number(unquote(nth($min-value-list, 2)));
-    }
-  }
-
-  // run the same checks over the $max-value
-  @if (type-of($max-value) == "string") {
-    // So it is a string does it have a "@" symbol to break apart
-    @if (str-index($max-value, "@")) {
-      $max-value-list: split-str($max-value, "@");
-      $max-value: to-number(unquote(nth($max-value-list, 1)));
-      $max-vw: to-number(unquote(nth($max-value-list, 2)));
-    }
-  }
-
-  // feed the shorter api back to the responsice resizer
-  @include responsive-resize(
-    $properties,
-    $min-vw,
-    $max-vw,
-    $min-value,
-    $max-value
-  );
-}
-
-/*
-  Single property.
-  with min and max passed.
-*/
-// h1 {
-//   @include responsive-type(22px, 38px);
-// }
-
-// /* An example of adding another property in such as line height */
-// h2 {
-//   @include responsive-type(18px, 28px);
-//   @include responsive-type(1.2, 1.05, line-height);
-// }
-
-// /* An example of the custom breakpoints for '@' redable syntax */
-// /* This is to avoid the map approach here: https://codepen.io/stowball/pen/JWoWWz */
-
-// h3 {
-//   @include responsive-type('14px@400px', '50px@1900px');
-//   @include responsive-type('1.2@400px', '1.05@1900px', line-height);
-// }
 
 /* stylelint-enable */

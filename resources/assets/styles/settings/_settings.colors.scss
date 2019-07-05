@@ -1,0 +1,82 @@
+///*----------------------------------*\
+//  #COLORS
+//\*----------------------------------*/
+
+// Set up a colour palette which allows us to theme the entire project from one
+// location.
+
+// Colour palette.
+$color-brand-primary: #513193 !default;
+$color-brand-secondary: #e82775 !default;
+
+$color-brand-primary-highlight: lighten($color-brand-primary, 5%) !default;
+$color-brand-primary-shadow: darken($color-brand-primary, 5%) !default;
+$color-brand-secondary-highlight: lighten($color-brand-secondary, 5%) !default;
+$color-brand-secondary-shadow: darken($color-brand-secondary, 5%) !default;
+
+$color-yellow: #fbce19;
+$color-light-blue: #bebadd;
+$color-teal: #21afab;
+$color-orange: #ec7030;
+
+$color-grey: #666 !default;
+$color-grey-dark: #444 !default;
+$color-grey-light: #999 !default;
+$color-white: #fff !default;
+
+// Theme colors.
+$theme-colors: (
+  "primary": $color-brand-primary,
+  "secondary": $color-brand-secondary,
+  "yellow": #fbce19,
+  "light-blue": #bebadd,
+  "teal": #21afab,
+  "orange": #ec7030,
+  "grey": #666,
+  "grey-dark": #444,
+  "grey-light": #999,
+  "white": #fff,
+);
+
+// Reassign literal variables to meaningful ones.
+$color-page-text: $color-grey-dark;
+$color-page-background: #f3f3f3;
+
+$color-logo: $color-brand-primary;
+
+$color-links: inherit;
+$color-links-editor: $color-brand-primary;
+$color-links-editor-hover: $color-brand-primary-shadow;
+
+$color-page-head: #fff;
+$color-page-head-background: $color-brand-primary;
+
+$color-masthead-background: $color-brand-primary;
+
+$color-btn: #fff;
+$color-btn-background: $color-brand-primary;
+$color-btn-background-hover: $color-brand-primary-shadow;
+$color-btn-secondary: #fff;
+$color-btn-secondary-background: $color-brand-secondary;
+$color-btn-secondary-background-hover: $color-brand-secondary-shadow;
+
+$color-page-foot: #fff;
+$color-page-foot-background: $color-grey-dark;
+
+$color-panel-background: #fff;
+$color-panel-inverse: #fff;
+$color-panel-inverse-background: $color-brand-primary;
+$color-panel-link: $color-grey-dark;
+$color-panel-link-hover: $color-brand-primary;
+
+$color-testimonial-background: #fff;
+$color-testimonial-border: $color-brand-primary;
+$color-testimonial-source: $color-grey;
+
+$color-title: $color-grey-light;
+
+$color-pagination: $color-white;
+$color-pagination-border: $color-pagination;
+$color-pagination-bg: $color-brand-primary;
+$color-pagination-bg-hover: $color-brand-primary-shadow;
+$color-pagination-bg-current: $color-brand-primary-highlight;

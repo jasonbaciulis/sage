@@ -1,0 +1,9 @@
+// Lazyloaded images
+.lazyload {
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.5, 0.01, 0.5, 1);
+}
+
+.lazyloaded {
+  opacity: 1;
+}

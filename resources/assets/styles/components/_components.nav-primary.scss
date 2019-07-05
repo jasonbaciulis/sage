@@ -1,9 +1,24 @@
-.c-nav-primary {
-  background-color: #fff;
-  box-shadow: 0 4px 4px rgba(0, 25, 117, 0.1);
+// .c-nav-primary {
+//   background-color: #fff;
+//   box-shadow: 0 4px 4px rgba(0, 25, 117, 0.1);
 
-  @include media-breakpoint-up(lg) {
-    background-color: transparent;
-    box-shadow: none;
-  }
-}
+//   @include media-breakpoint-up(lg) {
+//     background-color: transparent;
+//     box-shadow: none;
+//   }
+
+//   &__item {
+//   }
+
+//   &__link {
+//     display: inline-block;
+//     padding-right: $global-spacing-unit;
+//     padding-left: $global-spacing-unit;
+//     @include font-weight(normal);
+
+//     &.is-active {
+//       text-decoration: underline;
+//       cursor: default;
+//     }
+//   }
+// }

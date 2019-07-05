@@ -1,3 +1,48 @@
-// .s-editor {
+.s-editor {
+  a {
+    color: $color-links-editor;
+    text-decoration: underline;
+    @include font-weight(normal);
 
-// }
+    @include hocus() {
+      color: $color-links-editor-hover;
+    }
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  ul,
+  ol {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 2em;
+    line-height: 1.75;
+  }
+
+  li > ul,
+  li > ol {
+    margin-bottom: 0;
+    margin-left: 0.5em;
+  }
+
+  /**
+   * Prevent CMS users from abusing line breaks.
+   */
+  br + br {
+    display: none;
+  }
+
+  /**
+   * Discourage WYSIWYG users from applying their own styles.
+   */
+  [style]:after {
+    content: " Please refrain from adding your own styling.";
+    color: red;
+  }
+}
