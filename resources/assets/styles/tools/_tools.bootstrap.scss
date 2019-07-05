@@ -204,7 +204,7 @@ $body-color: $gray-900;
 //
 // Style anchor elements.
 
-$link-color: theme-color("primary");
+$link-color: $color-brand-primary;
 $link-decoration: none;
 $link-hover-color: darken($link-color, 15%);
 $link-hover-decoration: underline;
@@ -232,7 +232,7 @@ $box-shadow: 0 0.5rem 1rem rgba($black, 0.15);
 $box-shadow-lg: 0 1rem 3rem rgba($black, 0.175);
 
 $component-active-color: $white;
-$component-active-bg: theme-color("primary");
+$component-active-bg: $color-brand-primary;
 
 $caret-width: 0.3em;
 

@@ -1,19 +1,15 @@
-p {
-  line-height: 1.5;
-}
-
 q {
   quotes: "“ ”";
 }
 
 blockquote {
   background-color: #ccc;
-  border-left: 8px solid theme-color("secondary");
+  border-left: 8px solid $color-brand-secondary;
   margin: 1.5em 0;
   padding: 2em;
 
   &::before {
-    color: theme-color("secondary");
+    color: $color-brand-secondary;
     content: "\201C";
     font-size: 4em;
     line-height: 0.1em;

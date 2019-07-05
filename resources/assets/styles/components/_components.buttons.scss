@@ -1,5 +1,5 @@
 @mixin btn-hover() {
-  background-color: theme-color('secondary');
+  background-color: $color-brand-secondary;
 }
 
 .c-btn {
@@ -29,4 +29,3 @@
     transform: translate(-50%, -50%);
   }
 }
-

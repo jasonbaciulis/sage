@@ -26,7 +26,7 @@
         width: 100%;
         height: 4px;
         // background-image: linear-gradient();
-        background-color: theme-color('primary');
+        background-color: $color-brand-primary;
       }
     }
   }
@@ -47,11 +47,11 @@
   }
 
   &__title {
-    color: theme-color('secondary');
+    color: $color-brand-secondary;
   }
 
   &__title-link {
-    color: theme-color('secondary');
+    color: $color-brand-secondary;
 
     &:hover,
     &:focus,
@@ -62,7 +62,7 @@
 
   &__text {
     margin-bottom: 0;
-    color: theme-color('secondary');
+    color: $color-brand-secondary;
     line-height: 1.6;
   }
 }

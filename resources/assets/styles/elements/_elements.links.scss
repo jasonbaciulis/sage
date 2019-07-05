@@ -1,9 +1,9 @@
 a {
-  color: theme-color("primary");
+  color: $color-brand-primary;
   transition: all 0.15s ease;
 
   @include hocus() {
-    color: darken(theme-color("primary"), 5%);
+    color: darken($color-brand-primary, 5%);
     text-decoration: none;
   }
 }

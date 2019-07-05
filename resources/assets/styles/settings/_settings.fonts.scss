@@ -1,0 +1,27 @@
+///*----------------------------------*\
+//  #FONTS
+//\*----------------------------------*/
+
+// Set up fonts which allows us to theme the entire project from one
+// location.
+
+$body-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
+  Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$body-font-size-sm: $global-font-size;
+$body-font-size-lg: 18px;
+
+$heading-font-family: "Arial", sans-serif;
+
+$h1-font-size-sm: 30px;
+$h2-font-size-sm: 26px;
+$h3-font-size-sm: 20px;
+$h4-font-size-sm: 18px;
+$h5-font-size-sm: 16px;
+$h6-font-size-sm: 16px;
+
+$h1-font-size-xl: 50px;
+$h2-font-size-xl: 35px;
+$h3-font-size-xl: 28px;
+$h4-font-size-xl: 24px;
+$h5-font-size-xl: 20px;
+$h6-font-size-xl: 18px;
