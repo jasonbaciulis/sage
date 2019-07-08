@@ -1,0 +1,35 @@
+.container--wide {
+  @include media-breakpoint-up(xl) {
+    max-width: 1280px;
+  }
+}
+
+.c-container-border {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -60px;
+    left: -75px;
+    width: 100vw;
+    height: 100%;
+    border: 4px solid $color-yellow;
+  }
+}
+
+.col-bg-color {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -130px;
+    left: 0;
+    width: 100vw;
+    height: 150%;
+    background-color: $color-brand-primary;
+  }
+}
