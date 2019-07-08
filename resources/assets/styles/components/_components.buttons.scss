@@ -1,19 +1,28 @@
-@mixin btn-hover() {
-  background-color: $color-brand-secondary;
-}
-
 .c-btn {
-  transition: all 0.15s ease-in-out;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  vertical-align: middle;
+  background-color: transparent;
+  white-space: nowrap;
+  text-align: center;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.1s ease-out;
 
-  &:hover,
-  &:focus,
-  &:active {
-    @include btn-hover;
+  @include hocus() {
   }
 
-  // &--primary {
-
-  // }
+  &--primary {
+    width: 240px;
+    height: 58px;
+    border-radius: 29px;
+    background-color: $color-brand-secondary;
+    color: #fff;
+  }
 
   &--large {
     @include media-breakpoint-up(sm) {
@@ -22,10 +31,26 @@
     }
   }
 
-  &__icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  &--play {
+    position: relative;
+    width: em(100);
+    height: em(100);
+    border-radius: 50%;
+    background-color: $color-brand-secondary;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 53%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: em(30) 0 em(30) em(34);
+      border-color: transparent transparent transparent #fff;
+      border-radius: 3px;
+      line-height: 0;
+    }
   }
 }
